@@ -22,7 +22,7 @@ export const Footer: React.FC<FooterProps> = ({ currentLang, onLanguageChange })
           <div>
             <div className="flex items-center gap-3 mb-4">
               <img
-                src="/logo-5star.png"
+                src="/logo-5star.webp"
                 alt="WARSZTAT SAMOCHODOWY 5STARAUTO"
                 className="w-10 h-8 object-contain shrink-0"
               />

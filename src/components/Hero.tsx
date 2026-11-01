@@ -122,7 +122,7 @@ export const Hero: React.FC<HeroProps> = ({ currentLang }) => {
             <div className="relative p-7 rounded-3xl bg-white border border-slate-200/90 shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col items-center text-center group">
               <div className="relative w-64 sm:w-80 flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-105">
                 <img
-                  src="/logo-5star.png"
+                  src="/logo-5star.webp"
                   alt="WARSZTAT SAMOCHODOWY 5STARAUTO"
                   width={340}
                   height={270}
@@ -155,10 +155,10 @@ export const Hero: React.FC<HeroProps> = ({ currentLang }) => {
 
                 {/* Partner Brands Mini Pill Bar */}
                 <div className="pt-3 border-t border-slate-100 flex items-center justify-center gap-4 grayscale hover:grayscale-0 transition-all opacity-80 hover:opacity-100">
-                  <img src="/partner_0.png" alt="Motul" className="h-4 object-contain" />
-                  <img src="/partner_1.png" alt="Shell" className="h-4 object-contain" />
-                  <img src="/partner_2.png" alt="Mobil" className="h-4 object-contain" />
-                  <img src="/partner_3.png" alt="Castrol" className="h-4 object-contain" />
+                  <img src="/partner_0.webp" alt="Motul" className="h-4 object-contain" />
+                  <img src="/partner_1.webp" alt="Shell" className="h-4 object-contain" />
+                  <img src="/partner_2.webp" alt="Mobil" className="h-4 object-contain" />
+                  <img src="/partner_3.webp" alt="Castrol" className="h-4 object-contain" />
                 </div>
               </div>
             </div>

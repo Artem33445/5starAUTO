@@ -481,7 +481,7 @@ export default function AdminDashboardPage() {
           <div className="flex items-center gap-3">
             <div className="relative w-9 h-9 flex items-center justify-center">
               <Image
-                src="/logo-5star.png"
+                src="/logo-5star.webp"
                 alt="5STARAUTO"
                 width={36}
                 height={36}

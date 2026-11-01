@@ -54,7 +54,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
         {/* Brand */}
         <div className="flex items-center gap-2.5">
           <img
-            src="/logo-5star.png"
+            src="/logo-5star.webp"
             alt="5STARAUTO"
             className="w-10 h-8 object-contain shrink-0"
           />

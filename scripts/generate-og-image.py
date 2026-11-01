@@ -91,3 +91,4 @@ img.save('public/images/og-image.png', 'PNG')
 rgb_img.save('public/images/og-image.jpg', 'JPEG', quality=95)
 
 print("OpenGraph images successfully generated at 1200x630!")
+

@@ -44,7 +44,7 @@ export const Header: React.FC<HeaderProps> = ({
           aria-label="WARSZTAT SAMOCHODOWY 5STARAUTO Poznań"
         >
           <img
-            src="/logo-5star.png"
+            src="/logo-5star.webp"
             alt="WARSZTAT SAMOCHODOWY 5STARAUTO"
             width={48}
             height={38}

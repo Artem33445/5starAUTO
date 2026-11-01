@@ -23,9 +23,9 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
-      { url: '/logo-5star.png', type: 'image/png' },
+      { url: '/logo-5star.webp', type: 'image/png' },
     ],
-    apple: [{ url: '/logo-5star.png', sizes: '180x180', type: 'image/png' }],
+    apple: [{ url: '/logo-5star.webp', sizes: '180x180', type: 'image/png' }],
     shortcut: '/favicon.ico',
   },
   openGraph: {
@@ -106,7 +106,7 @@ export default function RootLayout({
     <html lang="pl" className="light">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/logo-5star.png" type="image/png" />
+        <link rel="icon" href="/logo-5star.webp" type="image/png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

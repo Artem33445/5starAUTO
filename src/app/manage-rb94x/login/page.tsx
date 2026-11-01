@@ -57,7 +57,7 @@ export default function AdminLoginPage() {
           <div className="inline-flex items-center justify-center gap-3 mb-4">
             <div className="relative w-12 h-12 flex items-center justify-center">
               <Image
-                src="/logo-5star.png"
+                src="/logo-5star.webp"
                 alt="5STARAUTO"
                 width={48}
                 height={48}
