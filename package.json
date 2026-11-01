@@ -1,0 +1,34 @@
+{
+  "name": "autoserwis-redbox",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -H 0.0.0.0",
+    "build": "prisma generate && next build",
+    "start": "next start -H 0.0.0.0 -p 3000",
+    "postinstall": "prisma generate",
+    "lint": "next lint",
+    "test:security": "npx -y tsx scripts/test-security.ts",
+    "deploy": "node scripts/deploy-firebase.js"
+  },
+  "dependencies": {
+    "@prisma/client": "5.21.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.460.0",
+    "next": "^14.2.16",
+    "prisma": "5.21.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "resend": "^6.35.0",
+    "tailwind-merge": "^2.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.6",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.3"
+  }
+}

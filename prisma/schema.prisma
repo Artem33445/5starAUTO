@@ -1,0 +1,30 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Booking {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  name          String
+  phone         String
+  email         String   @default("")
+  lang          String   @default("pl") // "pl" або "uk"
+  car           String?  // Марка, модель, рік авто
+  date          String   // Бажана дата (YYYY-MM-DD)
+  timeSlot      String   // Час (09:00, 10:00 тощо)
+  services      String   // Список послуг
+  totalPrice    Float    // Розрахункова вартість у PLN
+  notes         String?  // Симптоми від клієнта
+  
+  // Поля модерації майстром
+  status        String   @default("PENDING") // "PENDING" | "CONFIRMED" | "RESCHEDULED" | "REJECTED" | "DONE"
+  adminComment  String?  // Коментар майстра
+  suggestedDate String?  // Запропонована дата
+  suggestedSlot String?  // Запропонований час
+}
