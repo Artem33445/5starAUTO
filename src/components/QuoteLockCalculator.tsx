@@ -12,6 +12,7 @@ import {
   AlertCircle,
   CheckCircle2,
   ArrowRight,
+  Sparkles,
 } from 'lucide-react';
 import { Language } from '@/types';
 import { translations } from '@/data/translations';
@@ -52,7 +53,6 @@ export const QuoteLockCalculator: React.FC<CalculatorProps> = ({
   const nameInputRef = useRef<HTMLInputElement>(null);
   const phoneInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
-  const dateInputRef = useRef<HTMLInputElement>(null);
   const calendarBoxRef = useRef<HTMLDivElement>(null);
   const servicesBoxRef = useRef<HTMLDivElement>(null);
 
@@ -258,11 +258,11 @@ export const QuoteLockCalculator: React.FC<CalculatorProps> = ({
             submissionSuccess = true;
           }
         } catch (tgNetErr) {
-          console.error('Telegram notification network error:', tgNetErr);
+          console.error('Telegram notification error:', tgNetErr);
         }
       }
 
-      // Always treat as successfully accepted for the user experience
+      // Accepted view
       setIsSubmitted(true);
       setTimeout(() => {
         const el = document.getElementById('booking-success-view') || document.getElementById('calculator');
@@ -277,15 +277,15 @@ export const QuoteLockCalculator: React.FC<CalculatorProps> = ({
         submit:
           err?.message ||
           (currentLang === 'uk'
-            ? 'Помилка при збереженні заявки. Будь ласка, зателефонуйте або напишіть нам у WhatsApp чи Telegram.'
-            : 'Błąd podczas wysyłania zgłoszenia. Prosimy o kontakt telefoniczny lub WhatsApp.'),
+            ? 'Помилка при збереженні заявки. Будь ласка, зателефонуйте нам: +48 512 145 314.'
+            : 'Błąd podczas wysyłania zgłoszenia. Prosimy o kontakt telefoniczny: +48 512 145 314.'),
       }));
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // 5STARAUTO Booking hours: 09:00 to 19:00
+  // 5STARAUTO Working hours: 09:00 to 19:00
   const timeSlots = [
     '09:00',
     '10:00',
@@ -300,416 +300,455 @@ export const QuoteLockCalculator: React.FC<CalculatorProps> = ({
   ];
 
   return (
-    <section id="calculator" className="py-20 bg-slate-100/70 border-b border-slate-200 relative">
+    <section id="calculator" className="py-16 sm:py-24 bg-neo-bg border-b-[3px] border-black relative">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {isSubmitted ? (
           <div
             id="booking-success-view"
-            className="min-h-[60vh] flex items-center justify-center py-6 sm:py-12 animate-fade-in"
+            className="flex items-center justify-center py-6 sm:py-10"
           >
-            <div className="w-full max-w-xl p-6 sm:p-10 rounded-3xl bg-white border border-slate-200 text-center shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-red via-red-500 to-brand-red" />
-
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-emerald-50 border-2 border-emerald-500 flex items-center justify-center mx-auto text-emerald-600 mb-5 shadow-sm">
-                <CheckCircle2 className="w-9 h-9 sm:w-10 sm:h-10" />
-              </div>
-
-              <span className="inline-block text-[11px] uppercase tracking-widest font-black text-emerald-700 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 mb-3">
-                {currentLang === 'uk' ? 'Заявку успішно відправлено' : 'Zgłoszenie pomyślnie wysłane'}
-              </span>
-
-              <h2 className="font-heading font-black text-2xl sm:text-3xl text-slate-900 mb-2 sm:mb-3">
-                {t.calculator.successTitle}
-              </h2>
-
-              <p className="text-slate-600 text-xs sm:text-sm mb-6 leading-relaxed max-w-md mx-auto">
-                {t.calculator.successDesc}
-              </p>
-
-              {/* Booking Summary Box */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 text-left mb-6 text-xs sm:text-sm text-slate-700 space-y-2">
-                <div className="flex items-center justify-between pb-2 border-b border-slate-200">
-                  <span className="text-slate-500">
-                    {currentLang === 'uk' ? 'Орієнтовна сума:' : 'Szacowany koszt:'}
-                  </span>
-                  <span className="font-heading font-black text-base sm:text-lg text-slate-900">
-                    {totalPrice} PLN
-                  </span>
+            <div className="w-full max-w-xl rounded-lg bg-white border-[3px] border-black shadow-[8px_8px_0px_#000] overflow-hidden text-center">
+              {/* Window Header */}
+              <div className="bg-black text-white px-4 py-2.5 flex items-center justify-between border-b-[3px] border-black font-mono text-xs font-bold">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-[#FF5E5E] border border-black inline-block" />
+                  <span className="w-3 h-3 rounded-full bg-[#FFE600] border border-black inline-block" />
+                  <span className="w-3 h-3 rounded-full bg-[#23E28B] border border-black inline-block" />
+                  <span className="ml-2 uppercase">REZERWACJA_POTWIERDZONA.EXE</span>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-slate-500">
-                    {currentLang === 'uk' ? 'Дата та час візиту:' : 'Termin wizyty:'}
-                  </span>
-                  <span className="font-bold text-slate-900">
-                    {date} o {timeSlot}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-slate-500">
-                    {currentLang === 'uk' ? 'Контактний телефон:' : 'Telefon:'}
-                  </span>
-                  <span className="font-bold text-slate-900">{phone}</span>
-                </div>
-                {carModel && (
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-500">
-                      {currentLang === 'uk' ? 'Автомобіль:' : 'Pojazd:'}
-                    </span>
-                    <span className="font-bold text-slate-900">{carModel}</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Direct Messenger Chat Links */}
-              <div className="flex items-center justify-center gap-3 mb-5">
-                <a
-                  href={`https://wa.me/48512145314?text=${encodeURIComponent(
-                    currentLang === 'uk'
-                      ? `Вітаю! Я відправив заявку на запис до 5STARAUTO на ${date} (${timeSlot}) для ${name} (${phone}). Орієнтовно: ${totalPrice} PLN.`
-                      : `Dzień dobry! Wysłałem zgłoszenie rezerwacji do 5STARAUTO na ${date} (${timeSlot}) dla ${name} (${phone}). Wycena: ${totalPrice} PLN.`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 inline-flex items-center justify-center rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm transition-all active:scale-95 shadow-sm"
-                >
-                  <WhatsAppIcon className="w-5 h-5 shrink-0" />
-                </a>
-
-                <a
-                  href="https://t.me/+48512145314"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 inline-flex items-center justify-center rounded-xl bg-[#229ED9] hover:bg-[#1fa1dc] text-white font-bold text-xs sm:text-sm transition-all active:scale-95 shadow-sm"
-                >
-                  <TelegramIcon className="w-5 h-5 shrink-0" />
-                </a>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setIsSubmitted(false);
-                  setTimeout(() => {
-                    document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
-                  }, 60);
-                }}
-                className="text-xs font-bold text-slate-500 hover:text-slate-900 underline underline-offset-4 transition-colors"
-              >
-                {currentLang === 'uk' ? '← Зробити новий розрахунок' : '← Nowa kalkulacja'}
-              </button>
-            </div>
-          </div>
-        ) : (
-          <>
-            {/* Section Header */}
-            <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-700 shadow-sm mb-3">
-                <span>{t.calculator.pill}</span>
-              </div>
-              <h2 className="font-heading font-black text-2xl sm:text-4xl text-slate-900 tracking-tight mb-3">
-                {t.calculator.title}
-              </h2>
-              <p className="text-slate-600 text-sm sm:text-base">
-                {t.calculator.subtitle}
-              </p>
-            </div>
-
-            <form
-              onSubmit={handleSubmitBooking}
-              className="space-y-10"
-            >
-            {/* STEP 1: MULTI-SELECT SERVICES */}
-            <div ref={servicesBoxRef}>
-              <div className="mb-4">
-                <h3 className="font-heading font-black text-lg text-slate-900">
-                  {t.calculator.step1Title}
-                </h3>
-                <p className="text-slate-500 text-xs">{t.calculator.step1Desc}</p>
-                {errors.services && (
-                  <p className="text-red-500 text-xs font-bold mt-2 flex items-center gap-1">
-                    <AlertCircle className="w-3.5 h-3.5" />
-                    {errors.services}
-                  </p>
-                )}
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3">
-                {REDBOX_SERVICES.map((service) => {
-                  const isChecked = selectedServices.includes(service.id);
-                  const name = currentLang === 'uk' ? service.nameUk : service.namePl;
-
-                  return (
-                    <div
-                      key={service.id}
-                      onClick={() => toggleService(service.id)}
-                      className={`p-3.5 rounded-2xl border cursor-pointer transition-all flex items-center justify-between select-none shadow-sm ${
-                        isChecked
-                          ? 'bg-red-50/80 border-brand-red text-slate-900 shadow-sm'
-                          : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50/60'
-                      }`}
-                    >
-                      <div className="flex items-center gap-3 pr-2">
-                        <div
-                          className={`w-5 h-5 rounded flex items-center justify-center shrink-0 border transition-all ${
-                            isChecked
-                              ? 'bg-brand-red border-brand-red text-white'
-                              : 'border-slate-300 bg-white'
-                          }`}
-                        >
-                          {isChecked && <Check className="w-3.5 h-3.5" />}
-                        </div>
-                        <div>
-                          <div className="text-xs sm:text-sm font-semibold text-slate-900">
-                            {name}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="text-right shrink-0">
-                        <span className="text-xs sm:text-sm font-bold text-slate-900">
-                          {service.basePricePln} <span className="text-slate-500 text-[10px]">zł</span>
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Direct Next Step button right under Step 1 */}
-              <div className="mt-4 pt-3 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
-                <span className="text-xs text-slate-600 font-medium">
-                  {currentLang === 'uk'
-                    ? `Обрано послуг: ${selectedServices.length} | Попередня сума: ${totalPrice} PLN`
-                    : `Wybrano usług: ${selectedServices.length} | Szacowany koszt: ${totalPrice} PLN`}
+                <span className="bg-[#23E28B] text-black px-2 py-0.5 rounded font-black text-[10px]">
+                  STATUS: 200 OK
                 </span>
+              </div>
+
+              <div className="p-6 sm:p-10">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg bg-[#23E28B] border-[3px] border-black shadow-[4px_4px_0px_#000] flex items-center justify-center mx-auto text-black mb-5 rotate-[-2deg]">
+                  <CheckCircle2 className="w-9 h-9 sm:w-10 sm:h-10 stroke-[2.5]" />
+                </div>
+
+                <span className="inline-block text-[11px] font-mono uppercase tracking-widest font-black text-black px-3 py-1 rounded bg-[#FFE600] border-[2px] border-black shadow-[2px_2px_0px_#000] mb-4 rotate-[1deg]">
+                  {currentLang === 'uk' ? 'Заявку успішно прийнято' : 'Zgłoszenie pomyślnie przyjęte'}
+                </span>
+
+                <h2 className="font-heading font-black text-2xl sm:text-3xl text-black mb-3">
+                  {t.calculator.successTitle}
+                </h2>
+
+                <p className="font-sans text-black/80 text-xs sm:text-sm mb-6 leading-relaxed max-w-md mx-auto font-medium">
+                  {t.calculator.successDesc}
+                </p>
+
+                {/* Booking Summary Ticket */}
+                <div className="p-5 rounded-lg bg-[#F7F4EB] border-[2.5px] border-black shadow-[4px_4px_0px_#000] text-left mb-6 font-mono text-xs sm:text-sm text-black space-y-2">
+                  <div className="flex items-center justify-between pb-2 border-b-[2px] border-black">
+                    <span className="text-black/70">
+                      {currentLang === 'uk' ? 'Орієнтовна сума:' : 'Szacowany koszt:'}
+                    </span>
+                    <span className="font-heading font-black text-lg text-black bg-[#FFE600] px-2 py-0.5 rounded border border-black">
+                      {totalPrice} PLN
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-black/70">
+                      {currentLang === 'uk' ? 'Дата та час:' : 'Termin wizyty:'}
+                    </span>
+                    <span className="font-bold text-black">
+                      {date} o {timeSlot}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-black/70">
+                      {currentLang === 'uk' ? 'Контактний телефон:' : 'Telefon:'}
+                    </span>
+                    <span className="font-bold text-black">{phone}</span>
+                  </div>
+                  {carModel && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-black/70">
+                        {currentLang === 'uk' ? 'Автомобіль:' : 'Pojazd:'}
+                      </span>
+                      <span className="font-bold text-black">{carModel}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Direct Messenger Chat Links */}
+                <div className="flex items-center justify-center gap-3 mb-6">
+                  <a
+                    href={`https://wa.me/48512145314?text=${encodeURIComponent(
+                      currentLang === 'uk'
+                        ? `Вітаю! Я відправив заявку до 5STARAUTO на ${date} (${timeSlot}) для ${name} (${phone}). Розрахунок: ${totalPrice} PLN.`
+                        : `Dzień dobry! Wysłałem zgłoszenie rezerwacji do 5STARAUTO na ${date} (${timeSlot}) dla ${name} (${phone}). Wycena: ${totalPrice} PLN.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 inline-flex items-center justify-center rounded-lg bg-[#23E28B] text-black border-[2.5px] border-black shadow-[3px_3px_0px_#000] hover:shadow-[5px_5px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+                  >
+                    <WhatsAppIcon className="w-5 h-5 shrink-0 text-black fill-current" />
+                  </a>
+
+                  <a
+                    href="https://t.me/+48512145314"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 inline-flex items-center justify-center rounded-lg bg-[#5CE1E6] text-black border-[2.5px] border-black shadow-[3px_3px_0px_#000] hover:shadow-[5px_5px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+                  >
+                    <TelegramIcon className="w-5 h-5 shrink-0 text-black fill-current" />
+                  </a>
+                </div>
+
                 <button
                   type="button"
                   onClick={() => {
-                    document.getElementById('calculator-step2')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    setIsSubmitted(false);
                     setTimeout(() => {
-                      if (!name.trim()) nameInputRef.current?.focus();
-                    }, 400);
+                      document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 60);
                   }}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-brand-red text-slate-800 font-bold text-xs sm:text-sm active:scale-95 transition-all shadow-sm"
+                  className="text-xs font-mono font-bold text-black underline underline-offset-4 hover:text-[#FF5E5E] transition-colors"
                 >
-                  <span>
-                    {currentLang === 'uk'
-                      ? 'Перейти до дати та контактів'
-                      : 'Przejdź do terminu i danych'}
-                  </span>
-                  <ArrowRight className="w-4 h-4 text-brand-red" />
+                  {currentLang === 'uk' ? '← Зробити новий розрахунок' : '← Nowa kalkulacja'}
                 </button>
               </div>
             </div>
+          </div>
+        ) : (
+          <div className="rounded-lg bg-white border-[3px] border-black shadow-[8px_8px_0px_#000] overflow-hidden">
+            {/* Retro Window Dialog Header Bar */}
+            <div className="bg-black text-white px-4 py-3 flex items-center justify-between border-b-[3px] border-black font-mono text-xs font-bold tracking-wider">
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-[#FF5E5E] border border-black inline-block" />
+                <span className="w-3 h-3 rounded-full bg-[#FFE600] border border-black inline-block" />
+                <span className="w-3 h-3 rounded-full bg-[#23E28B] border border-black inline-block" />
+                <span className="ml-2 uppercase">QUOTE_LOCK_TERMINAL_V2.0 — KALKULATOR CEN</span>
+              </div>
+              <span className="bg-[#FFE600] text-black px-2 py-0.5 rounded text-[10px] font-black">
+                LIVE TALLY
+              </span>
+            </div>
 
-            {/* STEP 2: DATE, TIME SLOT, CONTACT INFO */}
-            <div id="calculator-step2" className="pt-6 border-t border-slate-200">
-              <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-card">
-                <div className="mb-6">
-                  <h3 className="font-heading font-black text-lg text-slate-900">
-                    {t.calculator.step2Title}
-                  </h3>
-                  <p className="text-slate-500 text-xs">{t.calculator.step2Desc}</p>
+            <div className="p-6 sm:p-8 lg:p-10 bg-[#FFFDF8]">
+              {/* Section Title */}
+              <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[#FFE600] border-[2px] border-black shadow-[2px_2px_0px_#000] font-mono text-xs font-bold text-black mb-3 rotate-[-1deg]">
+                  <span>✦ {t.calculator.pill}</span>
                 </div>
+                <h2 className="font-heading font-black text-2xl sm:text-4xl text-black tracking-tight mb-2">
+                  {t.calculator.title}
+                </h2>
+                <p className="font-sans text-black/80 font-medium text-xs sm:text-sm">
+                  {t.calculator.subtitle}
+                </p>
+              </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Customer Name */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      {t.calculator.inputName} *
-                    </label>
-                    <input
-                      id="calc-input-name"
-                      ref={nameInputRef}
-                      type="text"
-                      value={name}
-                      onChange={(e) => {
-                        setErrors((prev) => ({ ...prev, name: '' }));
-                        setName(e.target.value);
-                      }}
-                      placeholder="np. Jan Kowalski / Іван"
-                      className={`w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-red focus:bg-white transition-all text-sm ${
-                        errors.name ? 'input-error border-red-500' : 'border-slate-300'
-                      }`}
-                    />
-                    {errors.name && (
-                      <span className="text-red-500 text-[11px] font-bold mt-1 block">
-                        {errors.name}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Customer Phone (with Poland mask) */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      {t.calculator.inputPhone} *
-                    </label>
-                    <input
-                      id="calc-input-phone"
-                      ref={phoneInputRef}
-                      type="tel"
-                      value={phone}
-                      onChange={handlePhoneChange}
-                      placeholder="+48 512 145 314"
-                      className={`w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-red focus:bg-white transition-all text-sm ${
-                        errors.phone ? 'input-error border-red-500' : 'border-slate-300'
-                      }`}
-                    />
-                    {errors.phone && (
-                      <span className="text-red-500 text-[11px] font-bold mt-1 block">
-                        {errors.phone}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Customer Email for Confirmation */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      {t.calculator.inputEmail}
-                    </label>
-                    <input
-                      id="calc-input-email"
-                      ref={emailInputRef}
-                      type="email"
-                      value={email}
-                      onChange={(e) => {
-                        setErrors((prev) => ({ ...prev, email: '' }));
-                        setEmail(e.target.value);
-                      }}
-                      placeholder="np. jan.kowalski@gmail.com"
-                      className={`w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-red focus:bg-white transition-all text-sm ${
-                        errors.email ? 'input-error border-red-500' : 'border-slate-300'
-                      }`}
-                    />
-                    {errors.email && (
-                      <span className="text-red-500 text-[11px] font-bold mt-1 block">
-                        {errors.email}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Car Model */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      {t.calculator.inputCarModel}
-                    </label>
-                    <input
-                      type="text"
-                      value={carModel}
-                      onChange={(e) => setCarModel(e.target.value)}
-                      placeholder="np. Audi A4 B9 2.0 TDI / Skoda"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-red focus:bg-white transition-all text-sm"
-                    />
-                  </div>
-
-                  {/* Interactive Custom Calendar */}
-                  <div ref={calendarBoxRef} className="sm:col-span-2">
-                    <label className="block text-xs font-bold text-slate-700 mb-2">
-                      {t.calculator.inputDate} *
-                    </label>
-                    <CustomCalendar
-                      value={date}
-                      onChange={(newDate) => {
-                        setErrors((prev) => ({ ...prev, date: '' }));
-                        setDate(newDate);
-                      }}
-                      currentLang={currentLang}
-                      hasError={Boolean(errors.date)}
-                    />
-                    {errors.date && (
-                      <span className="text-red-500 text-[11px] font-bold mt-1.5 block">
-                        {errors.date}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Time Slot Selection: 09:00 to 19:00 */}
-                  <div className="sm:col-span-2">
-                    <div className="flex items-center justify-between mb-2">
-                      <label className="block text-xs font-bold text-slate-700">
-                        {t.calculator.inputSlot} *
-                      </label>
-                      <span className="text-[11px] text-slate-500 font-medium">
-                        {currentLang === 'uk' ? 'Робочі години: 09:00 – 19:00' : 'Godziny pracy: 09:00 – 19:00'}
-                      </span>
+              <form onSubmit={handleSubmitBooking} className="space-y-8 sm:space-y-10">
+                {/* STEP 1: MULTI-SELECT SERVICES */}
+                <div ref={servicesBoxRef}>
+                  <div className="mb-4 pb-2 border-b-[2px] border-black flex items-center justify-between">
+                    <div>
+                      <h3 className="font-heading font-black text-lg text-black">
+                        {t.calculator.step1Title}
+                      </h3>
+                      <p className="font-mono text-black/70 text-xs">{t.calculator.step1Desc}</p>
                     </div>
-                    <div className="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-1.5 sm:gap-2">
-                      {timeSlots.map((slot) => (
-                        <button
-                          key={slot}
-                          type="button"
-                          onClick={() => setTimeSlot(slot)}
-                          className={`py-2 px-1.5 sm:px-2 rounded-xl text-xs font-bold text-center transition-all ${
-                            timeSlot === slot
-                              ? 'bg-brand-red text-white shadow-red-subtle scale-105 z-10'
-                              : 'bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 hover:border-slate-300'
+                    <span className="bg-black text-[#FFE600] font-mono font-bold text-xs px-2 py-1 rounded">
+                      KROK 1/2
+                    </span>
+                  </div>
+
+                  {errors.services && (
+                    <div className="p-2.5 rounded bg-[#FF5E5E] border-[2px] border-black text-black font-mono text-xs font-bold mb-3 flex items-center gap-1.5 shadow-[2px_2px_0px_#000]">
+                      <AlertCircle className="w-4 h-4 stroke-[2.5]" />
+                      <span>{errors.services}</span>
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {REDBOX_SERVICES.map((service) => {
+                      const isChecked = selectedServices.includes(service.id);
+                      const name = currentLang === 'uk' ? service.nameUk : service.namePl;
+
+                      return (
+                        <div
+                          key={service.id}
+                          onClick={() => toggleService(service.id)}
+                          className={`p-3.5 rounded-lg border-[2.5px] border-black cursor-pointer transition-all flex items-center justify-between select-none ${
+                            isChecked
+                              ? 'bg-[#FFE600] text-black shadow-[4px_4px_0px_#000] -translate-x-0.5 -translate-y-0.5'
+                              : 'bg-white text-black shadow-[3px_3px_0px_#000] hover:bg-[#F7F4EB] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000]'
                           }`}
                         >
-                          {slot}
-                        </button>
-                      ))}
-                    </div>
+                          <div className="flex items-center gap-3 pr-2">
+                            <div
+                              className={`w-6 h-6 rounded border-[2px] border-black flex items-center justify-center shrink-0 transition-all ${
+                                isChecked
+                                  ? 'bg-black text-[#FFE600]'
+                                  : 'bg-white'
+                              }`}
+                            >
+                              {isChecked && <Check className="w-4 h-4 stroke-[3]" />}
+                            </div>
+                            <div>
+                              <div className="font-heading font-bold text-xs sm:text-sm text-black">
+                                {name}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="text-right shrink-0">
+                            <span className="font-mono text-xs sm:text-sm font-black text-black bg-white/70 px-2 py-0.5 rounded border border-black">
+                              {service.basePricePln} zł
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
 
-                  {/* Notes */}
-                  <div className="sm:col-span-2">
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      {t.calculator.inputNotes}
-                    </label>
-                    <textarea
-                      rows={2}
-                      value={notes}
-                      onChange={(e) => setNotes(e.target.value)}
-                      placeholder={
-                        currentLang === 'uk'
-                          ? 'Наприклад: стукіт зліва спереду при гальмуванні'
-                          : 'Np. stukanie z lewej strony przy hamowaniu'
-                      }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-red focus:bg-white transition-all text-sm"
-                    />
-                  </div>
-                </div>
-
-                {/* LIVE PRICE TALLY & ACTION BUTTONS */}
-                <div className="pt-6 mt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-6">
-                  <div>
-                    <span className="text-xs text-slate-500 uppercase tracking-wider block font-semibold">
-                      {t.calculator.totalEstimatedLabel}
+                  {/* Direct Next Step button under Step 1 */}
+                  <div className="mt-5 p-3.5 rounded-lg bg-[#F7F4EB] border-[2px] border-black flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <span className="font-mono text-xs font-bold text-black">
+                      {currentLang === 'uk'
+                        ? `Обрано: ${selectedServices.length} | Попередня сума: ${totalPrice} PLN`
+                        : `Wybrano: ${selectedServices.length} | Szacowany koszt: ${totalPrice} PLN`}
                     </span>
-                    <div className="flex items-baseline gap-2">
-                      <span className="font-heading font-black text-3xl sm:text-4xl text-slate-900">
-                        {totalPrice}
-                      </span>
-                      <span className="font-heading font-bold text-lg text-brand-red">
-                        {t.calculator.currencyPln}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Action Button: Submit */}
-                  <div className="w-full sm:w-auto flex flex-col items-end gap-2">
-                    {errors.submit && (
-                      <div className="p-2.5 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs flex items-center gap-2 max-w-md">
-                        <AlertCircle className="w-4 h-4 shrink-0" />
-                        <span>{errors.submit}</span>
-                      </div>
-                    )}
                     <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-brand-red hover:bg-red-700 text-white font-bold text-sm sm:text-base transition-all shadow-red-subtle active:scale-95 disabled:opacity-50"
+                      type="button"
+                      onClick={() => {
+                        document.getElementById('calculator-step2')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        setTimeout(() => {
+                          if (!name.trim()) nameInputRef.current?.focus();
+                        }, 400);
+                      }}
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-[#23E28B] hover:bg-[#FFE600] text-black font-heading font-extrabold text-xs uppercase tracking-wider border-[2px] border-black shadow-[3px_3px_0px_#000] hover:shadow-[5px_5px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] transition-all"
                     >
-                      <Check className="w-4 h-4" />
                       <span>
-                        {isSubmitting ? t.calculator.sending : t.calculator.btnSubmit}
+                        {currentLang === 'uk'
+                          ? 'Перейти до дати та контактів'
+                          : 'Przejdź do terminu i danych'}
                       </span>
+                      <ArrowRight className="w-4 h-4 stroke-[3]" />
                     </button>
                   </div>
                 </div>
-              </div>
+
+                {/* STEP 2: DATE, TIME SLOT, CONTACT INFO */}
+                <div id="calculator-step2" className="pt-6 border-t-[3px] border-black">
+                  <div className="p-6 sm:p-8 rounded-lg bg-white border-[3px] border-black shadow-[5px_5px_0px_#000]">
+                    <div className="mb-6 pb-2 border-b-[2px] border-black flex items-center justify-between">
+                      <div>
+                        <h3 className="font-heading font-black text-lg text-black">
+                          {t.calculator.step2Title}
+                        </h3>
+                        <p className="font-mono text-black/70 text-xs">{t.calculator.step2Desc}</p>
+                      </div>
+                      <span className="bg-black text-[#23E28B] font-mono font-bold text-xs px-2 py-1 rounded">
+                        KROK 2/2
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* Customer Name */}
+                      <div>
+                        <label className="block font-mono text-xs font-bold text-black mb-1.5">
+                          {t.calculator.inputName} *
+                        </label>
+                        <input
+                          id="calc-input-name"
+                          ref={nameInputRef}
+                          type="text"
+                          value={name}
+                          onChange={(e) => {
+                            setErrors((prev) => ({ ...prev, name: '' }));
+                            setName(e.target.value);
+                          }}
+                          placeholder="np. Jan Kowalski / Іван"
+                          className={`w-full px-3.5 py-2.5 rounded-lg bg-[#F7F4EB] border-[2.5px] text-black placeholder-black/40 font-mono text-sm font-bold shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000] focus:bg-[#FFE600]/20 outline-none transition-all ${
+                            errors.name ? 'border-[#FF2E2E] bg-red-50' : 'border-black'
+                          }`}
+                        />
+                        {errors.name && (
+                          <span className="font-mono text-[#FF2E2E] text-[11px] font-bold mt-1 block">
+                            {errors.name}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Customer Phone */}
+                      <div>
+                        <label className="block font-mono text-xs font-bold text-black mb-1.5">
+                          {t.calculator.inputPhone} *
+                        </label>
+                        <input
+                          id="calc-input-phone"
+                          ref={phoneInputRef}
+                          type="tel"
+                          value={phone}
+                          onChange={handlePhoneChange}
+                          placeholder="+48 512 145 314"
+                          className={`w-full px-3.5 py-2.5 rounded-lg bg-[#F7F4EB] border-[2.5px] text-black placeholder-black/40 font-mono text-sm font-bold shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000] focus:bg-[#FFE600]/20 outline-none transition-all ${
+                            errors.phone ? 'border-[#FF2E2E] bg-red-50' : 'border-black'
+                          }`}
+                        />
+                        {errors.phone && (
+                          <span className="font-mono text-[#FF2E2E] text-[11px] font-bold mt-1 block">
+                            {errors.phone}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Customer Email */}
+                      <div>
+                        <label className="block font-mono text-xs font-bold text-black mb-1.5">
+                          {t.calculator.inputEmail}
+                        </label>
+                        <input
+                          id="calc-input-email"
+                          ref={emailInputRef}
+                          type="email"
+                          value={email}
+                          onChange={(e) => {
+                            setErrors((prev) => ({ ...prev, email: '' }));
+                            setEmail(e.target.value);
+                          }}
+                          placeholder="np. jan.kowalski@gmail.com"
+                          className={`w-full px-3.5 py-2.5 rounded-lg bg-[#F7F4EB] border-[2.5px] text-black placeholder-black/40 font-mono text-sm font-bold shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000] focus:bg-[#FFE600]/20 outline-none transition-all ${
+                            errors.email ? 'border-[#FF2E2E] bg-red-50' : 'border-black'
+                          }`}
+                        />
+                        {errors.email && (
+                          <span className="font-mono text-[#FF2E2E] text-[11px] font-bold mt-1 block">
+                            {errors.email}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Car Model */}
+                      <div>
+                        <label className="block font-mono text-xs font-bold text-black mb-1.5">
+                          {t.calculator.inputCarModel}
+                        </label>
+                        <input
+                          type="text"
+                          value={carModel}
+                          onChange={(e) => setCarModel(e.target.value)}
+                          placeholder="np. Audi A4 B9 2.0 TDI / Skoda"
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-[#F7F4EB] border-[2.5px] border-black text-black placeholder-black/40 font-mono text-sm font-bold shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000] focus:bg-[#FFE600]/20 outline-none transition-all"
+                        />
+                      </div>
+
+                      {/* Custom Calendar */}
+                      <div ref={calendarBoxRef} className="sm:col-span-2">
+                        <label className="block font-mono text-xs font-bold text-black mb-2">
+                          {t.calculator.inputDate} *
+                        </label>
+                        <CustomCalendar
+                          value={date}
+                          onChange={(newDate) => {
+                            setErrors((prev) => ({ ...prev, date: '' }));
+                            setDate(newDate);
+                          }}
+                          currentLang={currentLang}
+                          hasError={Boolean(errors.date)}
+                        />
+                        {errors.date && (
+                          <span className="font-mono text-[#FF2E2E] text-[11px] font-bold mt-1.5 block">
+                            {errors.date}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Time Slot Selection */}
+                      <div className="sm:col-span-2">
+                        <div className="flex items-center justify-between mb-2">
+                          <label className="block font-mono text-xs font-bold text-black">
+                            {t.calculator.inputSlot} *
+                          </label>
+                          <span className="font-mono text-[11px] text-black/70 font-bold">
+                            {currentLang === 'uk' ? 'Робочі години: 09:00 – 19:00' : 'Godziny pracy: 09:00 – 19:00'}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-2">
+                          {timeSlots.map((slot) => {
+                            const isSlotSelected = timeSlot === slot;
+                            return (
+                              <button
+                                key={slot}
+                                type="button"
+                                onClick={() => setTimeSlot(slot)}
+                                className={`py-2 px-1.5 rounded-lg font-mono text-xs font-bold text-center border-[2px] border-black transition-all ${
+                                  isSlotSelected
+                                    ? 'bg-[#23E28B] text-black shadow-[3px_3px_0px_#000] -translate-x-0.5 -translate-y-0.5'
+                                    : 'bg-[#F7F4EB] text-black shadow-[2px_2px_0px_#000] hover:bg-white active:translate-x-0.5 active:translate-y-0.5 active:shadow-none'
+                                }`}
+                              >
+                                {slot}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Notes */}
+                      <div className="sm:col-span-2">
+                        <label className="block font-mono text-xs font-bold text-black mb-1.5">
+                          {t.calculator.inputNotes}
+                        </label>
+                        <textarea
+                          rows={2}
+                          value={notes}
+                          onChange={(e) => setNotes(e.target.value)}
+                          placeholder={
+                            currentLang === 'uk'
+                              ? 'Наприклад: стукіт зліва спереду при гальмуванні'
+                              : 'Np. stukanie z lewej strony przy hamowaniu'
+                          }
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-[#F7F4EB] border-[2.5px] border-black text-black placeholder-black/40 font-mono text-sm font-bold shadow-[2px_2px_0px_#000] focus:shadow-[4px_4px_0px_#000] focus:bg-[#FFE600]/20 outline-none transition-all"
+                        />
+                      </div>
+                    </div>
+
+                    {/* LIVE PRICE TALLY & ACTION BUTTONS */}
+                    <div className="pt-6 mt-6 border-t-[3px] border-black flex flex-col sm:flex-row items-center justify-between gap-6">
+                      <div className="p-4 bg-[#FFE600] border-[2.5px] border-black rounded-lg shadow-[4px_4px_0px_#000] w-full sm:w-auto">
+                        <span className="font-mono text-xs uppercase text-black font-bold block mb-1">
+                          {t.calculator.totalEstimatedLabel}
+                        </span>
+                        <div className="flex items-baseline gap-2">
+                          <span className="font-heading font-black text-3xl sm:text-4xl text-black">
+                            {totalPrice}
+                          </span>
+                          <span className="font-heading font-black text-xl text-black">
+                            {t.calculator.currencyPln}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Submit CTA */}
+                      <div className="w-full sm:w-auto flex flex-col items-end gap-2">
+                        {errors.submit && (
+                          <div className="p-2.5 rounded-lg bg-[#FF5E5E] border-[2px] border-black text-black font-mono text-xs font-bold flex items-center gap-2 max-w-md shadow-[2px_2px_0px_#000]">
+                            <AlertCircle className="w-4 h-4 shrink-0" />
+                            <span>{errors.submit}</span>
+                          </div>
+                        )}
+                        <button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-lg bg-[#FF5E5E] hover:bg-[#FFE600] text-black font-heading font-black text-sm sm:text-base uppercase tracking-wider border-[3px] border-black shadow-[6px_6px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-[1px_1px_0px_#000] transition-all disabled:opacity-50"
+                        >
+                          <Check className="w-5 h-5 stroke-[3]" />
+                          <span>
+                            {isSubmitting ? t.calculator.sending : t.calculator.btnSubmit}
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
-          </form>
-          </>
+          </div>
         )}
       </div>
     </section>

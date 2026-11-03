@@ -9,37 +9,60 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        dark: {
-          950: "#F8FAFC",
-          900: "#FFFFFF",
-          850: "#F1F5F9",
-          800: "#E2E8F0",
-          700: "#CBD5E1",
-          600: "#94A3B8",
+        neo: {
+          bg: "#F7F4EB", // Warm paper/cream base
+          cream: "#FFFDF8",
+          black: "#000000",
+          yellow: "#FFE600", // Acid Yellow
+          coral: "#FF5E5E",  // Hot Coral
+          mint: "#23E28B",   // Electric Mint
+          lilac: "#B886FF",  // Lilac / Violet
+          cyan: "#5CE1E6",   // Sky Cyan
+          orange: "#FF9F1C",
+          red: "#FF2E2E",
+          card: "#FFFFFF",
         },
         brand: {
-          red: "#DC2626",
-          darkred: "#B91C1C",
+          red: "#FF2E2E",
+          darkred: "#D90429",
           crimson: "#991B1B",
-          accent: "#EF4444",
-          light: "#FEE2E2",
-          gold: "#F59E0B",
+          accent: "#FF5E5E",
+          light: "#FFE5E5",
+          gold: "#FFE600",
         },
       },
       fontFamily: {
-        heading: ["Space Grotesk", "sans-serif"],
-        sans: ["Plus Jakarta Sans", "system-ui", "-apple-system", "sans-serif"],
+        heading: ["'Space Grotesk'", "sans-serif"],
+        display: ["'Lexend Mega'", "'Space Grotesk'", "sans-serif"],
+        sans: ["'Public Sans'", "sans-serif"],
+        mono: ["'Space Mono'", "monospace"],
       },
       boxShadow: {
-        "metal": "0 4px 20px -2px rgba(0, 0, 0, 0.06)",
-        "red-subtle": "0 8px 20px -6px rgba(220, 38, 38, 0.28)",
-        "card": "0 2px 12px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.03)",
-        "card-hover": "0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04)",
+        "neo-sm": "3px 3px 0px #000000",
+        "neo": "5px 5px 0px #000000",
+        "neo-lg": "8px 8px 0px #000000",
+        "neo-xl": "12px 12px 0px #000000",
+        "neo-hover": "7px 7px 0px #000000",
+        "neo-active": "1px 1px 0px #000000",
+      },
+      borderWidth: {
+        '2.5': '2.5px',
+        '3': '3px',
       },
       animation: {
+        "marquee": "marquee 32s linear infinite",
+        "marquee-reverse": "marquee-reverse 32s linear infinite",
         "shake": "shake 0.4s ease-in-out",
       },
       keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        "marquee-reverse": {
+          "0%": { transform: "translateX(-50%)" },
+          "100%": { transform: "translateX(0%)" },
+        },
         shake: {
           "0%, 100%": { transform: "translateX(0)" },
           "20%, 60%": { transform: "translateX(-6px)" },

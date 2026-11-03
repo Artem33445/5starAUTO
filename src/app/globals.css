@@ -1,47 +1,60 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap&subset=cyrillic,cyrillic-ext,latin,latin-ext');
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@600;700;800;900&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Space+Grotesk:wght@500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap&subset=cyrillic,cyrillic-ext,latin,latin-ext');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --bg-main: #f8fafc;
-  --bg-card: #ffffff;
-  --bg-card-hover: #f1f5f9;
-  --border-subtle: rgba(0, 0, 0, 0.08);
-  --border-red: rgba(220, 38, 38, 0.35);
-  --red-accent: #dc2626;
-  --red-dark: #b91c1c;
+  --neo-bg: #F7F4EB;
+  --neo-cream: #FFFDF8;
+  --neo-black: #000000;
+  --neo-yellow: #FFE600;
+  --neo-coral: #FF5E5E;
+  --neo-mint: #23E28B;
+  --neo-lilac: #B886FF;
+  --neo-cyan: #5CE1E6;
 }
 
 html {
-  background-color: var(--bg-main);
-  color: #0f172a;
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: #F7F4EB;
+  color: #000000;
+  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
-  touch-action: manipulation;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--bg-main);
-  color: #0f172a;
+  background-color: #F7F4EB;
+  color: #000000;
   overflow-x: hidden;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
 }
 
-/* Allow text selection & caret editing inside inputs and textareas */
-input, textarea, select, [contenteditable="true"] {
-  user-select: text !important;
-  -webkit-user-select: text !important;
+/* Neo-Brutalist Selection */
+::selection {
+  background-color: #FFE600;
+  color: #000000;
+}
+
+/* Retro Halftone Dots Pattern */
+.bg-neo-dots {
+  background-image: radial-gradient(#000000 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+
+.bg-neo-dots-sm {
+  background-image: radial-gradient(#000000 1.2px, transparent 1.2px);
+  background-size: 16px 16px;
+}
+
+/* Retro Blueprint Grid */
+.bg-neo-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
 }
 
 /* Strict mobile menu scroll-lock */
@@ -53,50 +66,32 @@ body.menu-open {
   touch-action: none !important;
 }
 
-/* iOS Safari auto-zoom prevention: inputs must be >= 16px */
-input, select, textarea {
-  font-size: 16px !important;
-}
-
-/* Custom subtle light scrollbar */
+/* Custom Brutalist Chunky Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 12px;
+  height: 12px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #F7F4EB;
+  border-left: 2.5px solid #000000;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
+  background: #FFE600;
+  border: 2.5px solid #000000;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #dc2626;
+  background: #FF5E5E;
 }
 
-/* Inline form validation error shake */
-@keyframes ql-shake {
+/* Form validation shake */
+@keyframes neo-shake {
   0%, 100% { transform: translateX(0); }
   20%, 60% { transform: translateX(-6px); }
   40%, 80% { transform: translateX(6px); }
 }
 
 .input-error {
-  border-color: #ef4444 !important;
-  animation: ql-shake 0.4s ease-in-out;
-}
-
-/* Subtle automotive red pulse for highlight badge/button */
-@keyframes red-pulse-glow {
-  0%, 100% {
-    border-color: rgba(220, 38, 38, 0.4);
-    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0), inset 0 0 6px rgba(220, 38, 38, 0.04);
-  }
-  50% {
-    border-color: rgba(239, 68, 68, 0.85);
-    box-shadow: 0 0 16px rgba(220, 38, 38, 0.2), inset 0 0 10px rgba(220, 38, 38, 0.08);
-  }
-}
-
-.pulse-red-glow {
-  animation: red-pulse-glow 2.2s ease-in-out infinite;
+  border-color: #FF2E2E !important;
+  background-color: #FFF5F5 !important;
+  animation: neo-shake 0.35s ease-in-out;
 }

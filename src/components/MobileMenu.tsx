@@ -46,38 +46,40 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-white/98 backdrop-blur-xl flex flex-col justify-between p-6 overflow-y-auto"
+      className="fixed inset-0 z-50 bg-[#F7F4EB] flex flex-col justify-between p-4 sm:p-6 overflow-y-auto font-sans"
       style={{ height: '100dvh' }}
     >
       {/* Top Bar inside Menu */}
-      <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+      <div className="flex items-center justify-between border-b-[3px] border-black pb-4">
         {/* Brand */}
         <div className="flex items-center gap-2.5">
-          <img
-            src="/logo-5star.webp"
-            alt="5STARAUTO"
-            className="w-10 h-8 object-contain shrink-0"
-          />
+          <div className="p-1 bg-white border-[2px] border-black rounded shadow-[2px_2px_0px_#000]">
+            <img
+              src="/logo-5star.webp"
+              alt="5STARAUTO"
+              className="w-8 h-7 object-contain shrink-0"
+            />
+          </div>
           <div>
-            <div className="font-heading font-black text-lg text-slate-900">
-              5STAR<span className="text-brand-red">AUTO</span>
+            <div className="font-heading font-black text-lg text-black">
+              5STAR<span className="bg-[#FFE600] px-1 ml-0.5 rounded border border-black">AUTO</span>
             </div>
-            <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
-              Poznań • 4.9 ★
+            <div className="font-mono text-[10px] text-black/80 uppercase font-bold">
+              POZNAŃ • 4.9 ★
             </div>
           </div>
         </div>
 
         {/* Language switch + Close */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center bg-slate-100 border border-slate-200 rounded-lg p-0.5 shadow-sm">
+        <div className="flex items-center gap-2">
+          <div className="flex items-center bg-white border-[2px] border-black rounded-lg p-0.5 shadow-[2px_2px_0px_#000]">
             <button
               type="button"
               onClick={() => onLanguageChange('uk')}
-              className={`px-2.5 py-1 text-xs font-bold rounded transition-all ${
+              className={`px-2 py-1 text-xs font-mono font-bold rounded ${
                 currentLang === 'uk'
-                  ? 'bg-brand-red text-white shadow-sm'
-                  : 'text-slate-600'
+                  ? 'bg-[#FFE600] text-black border border-black'
+                  : 'text-black/70'
               }`}
             >
               UA
@@ -85,10 +87,10 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
             <button
               type="button"
               onClick={() => onLanguageChange('pl')}
-              className={`px-2.5 py-1 text-xs font-bold rounded transition-all ${
+              className={`px-2 py-1 text-xs font-mono font-bold rounded ${
                 currentLang === 'pl'
-                  ? 'bg-brand-red text-white shadow-sm'
-                  : 'text-slate-600'
+                  ? 'bg-[#FFE600] text-black border border-black'
+                  : 'text-black/70'
               }`}
             >
               PL
@@ -98,35 +100,35 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-900"
+            className="p-1.5 rounded-lg bg-[#FF5E5E] border-[2px] border-black shadow-[2px_2px_0px_#000] text-black active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
             aria-label="Zamknij menu"
           >
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5 stroke-[3]" />
           </button>
         </div>
       </div>
 
-      {/* Navigation Links */}
-      <nav className="flex flex-col gap-2 my-auto py-6" aria-label="Mobile Navigation">
+      {/* Navigation Links - Chunky Brutalist Blocks */}
+      <nav className="flex flex-col gap-2.5 my-auto py-4" aria-label="Mobile Navigation">
         <a
           href="#services"
           onClick={handleLinkClick}
-          className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-lg font-semibold text-slate-900 hover:border-brand-red/40 transition-all shadow-sm"
+          className="flex items-center justify-between p-3.5 rounded-lg bg-white border-[2.5px] border-black text-base font-heading font-black text-black shadow-[3px_3px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] transition-all"
         >
           <span>{t.nav.services}</span>
-          <ArrowRight className="w-4 h-4 text-slate-400" />
+          <ArrowRight className="w-4 h-4 stroke-[3]" />
         </a>
 
         <a
           href="#calculator"
           onClick={handleLinkClick}
-          className="flex items-center justify-between p-3.5 rounded-xl bg-red-50/70 border border-red-200 text-lg font-semibold text-slate-900 transition-all shadow-sm"
+          className="flex items-center justify-between p-3.5 rounded-lg bg-[#FFE600] border-[2.5px] border-black text-base font-heading font-black text-black shadow-[3px_3px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] transition-all"
         >
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#FF5E5E] border border-black animate-pulse" />
             <span>{t.nav.calculator}</span>
           </div>
-          <span className="text-xs font-bold text-brand-red bg-red-100 px-2 py-0.5 rounded">
+          <span className="text-xs font-mono font-black text-black bg-white px-2 py-0.5 rounded border border-black">
             PLN
           </span>
         </a>
@@ -134,60 +136,60 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
         <a
           href="#wymiana-opon"
           onClick={handleLinkClick}
-          className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-lg font-semibold text-slate-900 hover:border-brand-red/40 transition-all shadow-sm"
+          className="flex items-center justify-between p-3.5 rounded-lg bg-white border-[2.5px] border-black text-base font-heading font-black text-black shadow-[3px_3px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] transition-all"
         >
-          <div className="flex items-center gap-2.5">
-            <Disc className="w-5 h-5 text-brand-red" />
+          <div className="flex items-center gap-2">
+            <Disc className="w-4 h-4 text-black stroke-[2.5]" />
             <span>{t.nav.tires}</span>
           </div>
-          <ArrowRight className="w-4 h-4 text-slate-400" />
+          <ArrowRight className="w-4 h-4 stroke-[3]" />
         </a>
 
         <a
           href="#process"
           onClick={handleLinkClick}
-          className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-lg font-semibold text-slate-900 hover:border-brand-red/40 transition-all shadow-sm"
+          className="flex items-center justify-between p-3.5 rounded-lg bg-white border-[2.5px] border-black text-base font-heading font-black text-black shadow-[3px_3px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] transition-all"
         >
           <span>{t.nav.process}</span>
-          <ArrowRight className="w-4 h-4 text-slate-400" />
+          <ArrowRight className="w-4 h-4 stroke-[3]" />
         </a>
 
         <a
           href="#reviews"
           onClick={handleLinkClick}
-          className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-lg font-semibold text-slate-900 hover:border-brand-red/40 transition-all shadow-sm"
+          className="flex items-center justify-between p-3.5 rounded-lg bg-white border-[2.5px] border-black text-base font-heading font-black text-black shadow-[3px_3px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] transition-all"
         >
           <span>{t.nav.reviews}</span>
-          <ArrowRight className="w-4 h-4 text-slate-400" />
+          <ArrowRight className="w-4 h-4 stroke-[3]" />
         </a>
 
         <a
           href="#contact"
           onClick={handleLinkClick}
-          className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-lg font-semibold text-slate-900 hover:border-brand-red/40 transition-all shadow-sm"
+          className="flex items-center justify-between p-3.5 rounded-lg bg-white border-[2.5px] border-black text-base font-heading font-black text-black shadow-[3px_3px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] transition-all"
         >
           <span>{t.nav.contacts}</span>
-          <ArrowRight className="w-4 h-4 text-slate-400" />
+          <ArrowRight className="w-4 h-4 stroke-[3]" />
         </a>
       </nav>
 
       {/* Bottom Info & Fast Action Buttons */}
-      <div className="flex flex-col gap-3 pt-4 border-t border-slate-200">
-        <div className="flex items-center gap-2 text-xs text-slate-600">
-          <MapPin className="w-3.5 h-3.5 text-brand-red shrink-0" />
-          <span>ul. Kazimierza Jarochowskiego 105, Poznań</span>
+      <div className="flex flex-col gap-2.5 pt-4 border-t-[3px] border-black">
+        <div className="font-mono text-xs text-black font-bold flex items-center gap-2">
+          <MapPin className="w-4 h-4 text-[#FF5E5E] shrink-0" />
+          <span>ul. Jarochowskiego 105, Poznań</span>
         </div>
-        <div className="flex items-center gap-2 text-xs text-slate-600">
-          <Clock className="w-3.5 h-3.5 text-brand-red shrink-0" />
+        <div className="font-mono text-xs text-black font-bold flex items-center gap-2">
+          <Clock className="w-4 h-4 text-[#23E28B] shrink-0" />
           <span>Pn-Pt: 09:00 - 19:00 (Sob-Nd: nieczynne)</span>
         </div>
 
         <div className="grid grid-cols-2 gap-3 mt-2">
           <a
             href="tel:+48512145314"
-            className="flex items-center justify-center gap-2 py-3 rounded-xl bg-slate-100 border border-slate-300 text-slate-900 font-bold text-sm hover:border-brand-red transition-all shadow-sm"
+            className="flex items-center justify-center gap-2 py-3 rounded-lg bg-white border-[2.5px] border-black text-black font-mono font-black text-xs shadow-[3px_3px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] transition-all"
           >
-            <Phone className="w-4 h-4 text-brand-red" />
+            <Phone className="w-4 h-4 stroke-[2.5]" />
             <span>{t.nav.callUs}</span>
           </a>
 
@@ -196,22 +198,20 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
               href="https://wa.me/48512145314"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition-all active:scale-95 shadow-sm"
-              aria-label="Direct WhatsApp: +48 512 145 314"
-              title="WhatsApp"
+              className="flex items-center justify-center py-3 rounded-lg bg-[#23E28B] text-black border-[2.5px] border-black shadow-[3px_3px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] transition-all"
+              aria-label="Direct WhatsApp"
             >
-              <WhatsAppIcon className="w-5 h-5 shrink-0" />
+              <WhatsAppIcon className="w-5 h-5 shrink-0 text-black fill-current" />
             </a>
 
             <a
               href="https://t.me/+48512145314"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center py-3.5 rounded-xl bg-[#229ED9] hover:bg-[#1fa1dc] text-white transition-all active:scale-95 shadow-sm"
-              aria-label="Direct Telegram: +48 512 145 314"
-              title="Telegram"
+              className="flex items-center justify-center py-3 rounded-lg bg-[#5CE1E6] text-black border-[2.5px] border-black shadow-[3px_3px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] transition-all"
+              aria-label="Direct Telegram"
             >
-              <TelegramIcon className="w-5 h-5 shrink-0" />
+              <TelegramIcon className="w-5 h-5 shrink-0 text-black fill-current" />
             </a>
           </div>
         </div>

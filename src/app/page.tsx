@@ -67,7 +67,7 @@ export default function Home() {
   };
 
 return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between selection:bg-brand-red selection:text-white">
+    <div className="min-h-screen bg-neo-bg text-black flex flex-col justify-between selection:bg-neo-yellow selection:text-black font-sans">
       {/* Sticky Light Header */}
       <Header
         currentLang={currentLang}
