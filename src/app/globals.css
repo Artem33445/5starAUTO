@@ -38,35 +38,93 @@ body {
   color: #000000;
 }
 
-/* Retro Halftone Dots Pattern */
+/* Spring-Physics Bounce Utilities */
+.spring-bounce {
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+}
+
+.spring-bounce:hover {
+  transform: translateY(-5px) scale(1.02);
+}
+
+.spring-bounce:active {
+  transform: translateY(2px) scale(0.96);
+  transition-duration: 0.1s;
+}
+
+/* Liquid Droplet Morph */
+@keyframes liquid-droplet {
+  0%, 100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  33% {
+    border-radius: 35% 65% 60% 40% / 50% 60% 40% 50%;
+  }
+  66% {
+    border-radius: 50% 50% 35% 65% / 40% 45% 55% 60%;
+  }
+}
+
+.liquid-shape {
+  animation: liquid-droplet 8s ease-in-out infinite;
+}
+
+.liquid-shape-fast {
+  animation: liquid-droplet 4s ease-in-out infinite;
+}
+
+/* Rubber Band Bounce */
+@keyframes rubber-bounce {
+  0% { transform: scale(1); }
+  30% { transform: scaleX(1.2) scaleY(0.85); }
+  50% { transform: scaleX(0.88) scaleY(1.15); }
+  70% { transform: scaleX(1.08) scaleY(0.94); }
+  90% { transform: scaleX(0.98) scaleY(1.02); }
+  100% { transform: scale(1); }
+}
+
+.animate-rubber:hover {
+  animation: rubber-bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Floating Vertical Bob */
+@keyframes float-bob {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1.5deg); }
+}
+
+.animate-float {
+  animation: float-bob 4s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-bob 5s ease-in-out 1.5s infinite;
+}
+
+/* Droplet Drip Transition Effect */
+@keyframes drip-pulse {
+  0%, 100% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.06, 0.94) translateY(3px); }
+}
+
+.animate-drip {
+  animation: drip-pulse 2.5s ease-in-out infinite;
+}
+
+/* Halftone and Blueprint Grid */
 .bg-neo-dots {
   background-image: radial-gradient(#000000 1.5px, transparent 1.5px);
   background-size: 24px 24px;
 }
 
-.bg-neo-dots-sm {
-  background-image: radial-gradient(#000000 1.2px, transparent 1.2px);
-  background-size: 16px 16px;
-}
-
-/* Retro Blueprint Grid */
 .bg-neo-grid {
-  background-size: 32px 32px;
+  background-size: 36px 36px;
   background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 0, 0, 0.06) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1.5px, transparent 1.5px);
 }
 
-/* Strict mobile menu scroll-lock */
-html.menu-open,
-body.menu-open {
-  overflow: hidden !important;
-  height: 100% !important;
-  width: 100% !important;
-  touch-action: none !important;
-}
-
-/* Custom Brutalist Chunky Scrollbar */
+/* Custom Chunky Scrollbar */
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
@@ -83,7 +141,16 @@ body.menu-open {
   background: #FF5E5E;
 }
 
-/* Form validation shake */
+/* Mobile scroll-lock */
+html.menu-open,
+body.menu-open {
+  overflow: hidden !important;
+  height: 100% !important;
+  width: 100% !important;
+  touch-action: none !important;
+}
+
+/* Input validation error shake */
 @keyframes neo-shake {
   0%, 100% { transform: translateX(0); }
   20%, 60% { transform: translateX(-6px); }

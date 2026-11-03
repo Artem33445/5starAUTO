@@ -66,9 +66,13 @@ export default function Home() {
     }, 50);
   };
 
-return (
-    <div className="min-h-screen bg-neo-bg text-black flex flex-col justify-between selection:bg-neo-yellow selection:text-black font-sans">
-      {/* Sticky Light Header */}
+  return (
+    <div className="min-h-screen bg-neo-bg text-black selection:bg-neo-yellow selection:text-black font-sans">
+      {/* 
+        Dual Navigation System:
+        - On desktop (lg:), Header renders as the fixed Left Vertical Sidebar Dock (w-72 xl:w-80)
+        - On mobile (< lg), Header renders as the top brutalist bar
+      */}
       <Header
         currentLang={currentLang}
         onLanguageChange={handleLanguageChange}
@@ -83,45 +87,48 @@ return (
         onLanguageChange={handleLanguageChange}
       />
 
-      <main>
-        {/* Hero Section */}
-        <Hero currentLang={currentLang} />
+      {/* Main Canvas: offset by lg:pl-72 xl:pl-80 on desktop to align with the Vertical Sidebar Dock */}
+      <div className="lg:pl-72 xl:pl-80 w-full min-h-screen flex flex-col justify-between">
+        <main className="w-full overflow-x-hidden">
+          {/* Radical Kinetic Hero Section with Live Symptom Stethoscope */}
+          <Hero currentLang={currentLang} />
 
-        {/* Live Trust & Services Ticker */}
-        <TrustTicker currentLang={currentLang} />
+          {/* Dual-Direction Live Trust & Services Ticker Tape */}
+          <TrustTicker currentLang={currentLang} />
 
-        {/* Services Bento Grid */}
-        <ServicesBento
+          {/* Interactive Fluid Service Studio (Live Category Morphing & Tire Calculator) */}
+          <ServicesBento
+            currentLang={currentLang}
+            onSelectServiceToQuote={handleSelectServiceToQuote}
+          />
+
+          {/* QuoteLock Interactive Calculator (Real-time PLN tally) */}
+          <QuoteLockCalculator
+            currentLang={currentLang}
+            preselectedServiceId={preselectedServiceId}
+          />
+
+          {/* 4-Step Repair Protocol Highway */}
+          <WorkflowProcess currentLang={currentLang} />
+
+          {/* 4.9 Google Reviews Kinetic Speech Cloud */}
+          <ReviewsShowcase currentLang={currentLang} />
+
+          {/* FAQ Accordion */}
+          <FaqAccordion currentLang={currentLang} />
+
+          {/* Location & Map & Working Hours */}
+          <LocationHours currentLang={currentLang} />
+        </main>
+
+        {/* High-Contrast Footer */}
+        <Footer
           currentLang={currentLang}
-          onSelectServiceToQuote={handleSelectServiceToQuote}
+          onLanguageChange={handleLanguageChange}
         />
+      </div>
 
-        {/* QuoteLock Interactive Calculator (Real-time PLN tally) */}
-        <QuoteLockCalculator
-          currentLang={currentLang}
-          preselectedServiceId={preselectedServiceId}
-        />
-
-        {/* 4-Step Repair Protocol */}
-        <WorkflowProcess currentLang={currentLang} />
-
-        {/* 4.9 Google Reviews Showcase */}
-        <ReviewsShowcase currentLang={currentLang} />
-
-        {/* FAQ Accordion */}
-        <FaqAccordion currentLang={currentLang} />
-
-        {/* Location & Map & Working Hours */}
-        <LocationHours currentLang={currentLang} />
-      </main>
-
-      {/* Footer */}
-      <Footer
-        currentLang={currentLang}
-        onLanguageChange={handleLanguageChange}
-      />
-
-      {/* Fixed Sticky Mobile Converter Bar (Phone + Calculator) */}
+      {/* Fixed Sticky Mobile Converter Bar (Phone + Calculator) for small screens */}
       <StickyMobileBar
         currentLang={currentLang}
         isMenuOpen={isMobileMenuOpen}
