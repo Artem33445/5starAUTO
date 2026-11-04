@@ -11,8 +11,12 @@ const config: Config = {
       colors: {
         hermes: {
           blue: "#0000F2",          // Electric Klein Blue (Hermes signature)
+          primary: "#0000F2",
+          paper: "#FFFFFF",
+          ink: "#000030",           // Dark ink on paper
           "blue-dark": "#0000C2",   // Deep Cobalt
           "blue-darker": "#00008F",
+          "blue-dark-40": "#000030",
           "blue-light": "#3333FF",
           "blue-glow": "rgba(0, 0, 242, 0.4)",
           dark: "#090915",          // Deep void background

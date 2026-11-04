@@ -1,9 +1,8 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { X, Phone, ArrowRight, MapPin, Clock, Disc, Terminal } from 'lucide-react';
+import { X, Phone, ArrowRight, MapPin } from 'lucide-react';
 import { Language } from '@/types';
-import { translations } from '@/data/translations';
 import { WhatsAppIcon, TelegramIcon } from '@/components/SocialIcons';
 
 interface MobileMenuProps {
@@ -19,171 +18,121 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
   currentLang,
   onLanguageChange,
 }) => {
-  const t = translations[currentLang];
-
   useEffect(() => {
     if (isOpen) {
-      const scrollY = window.scrollY;
-      document.body.style.top = `-${scrollY}px`;
-      document.body.classList.add('menu-open');
-      document.documentElement.classList.add('menu-open');
+      document.body.style.overflow = 'hidden';
     } else {
-      const scrollY = document.body.style.top;
-      document.body.classList.remove('menu-open');
-      document.documentElement.classList.remove('menu-open');
-      document.body.style.top = '';
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      }
+      document.body.style.overflow = '';
     }
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isOpen]);
 
   if (!isOpen) return null;
 
-  const handleLinkClick = () => {
-    onClose();
-  };
-
   return (
     <div
-      className="fixed inset-0 z-50 bg-[#090915]/95 backdrop-blur-2xl flex flex-col justify-between p-6 overflow-y-auto font-sans"
+      className="fixed inset-0 z-[100] bg-[#0000F2] text-white flex flex-col justify-between p-6 sm:p-8 overflow-y-auto select-none"
       style={{ height: '100dvh' }}
     >
       {/* Top Header */}
-      <div className="flex items-center justify-between border-b border-white/10 pb-4">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-[#0000F2] flex items-center justify-center font-mono font-bold text-sm text-white">
-            5★
-          </div>
-          <span className="font-heading font-black text-lg text-white">
-            5STAR<span className="text-[#00F0FF]">AUTO</span>
+      <div className="flex items-center justify-between border-b border-white/20 pb-4">
+        <div className="flex flex-col">
+          <span className="font-heading font-black text-2xl uppercase tracking-tight text-white leading-none">
+            5STAR
+          </span>
+          <span className="font-heading font-black text-2xl uppercase tracking-tight text-white leading-none">
+            AUTO
           </span>
         </div>
 
-        <div className="flex items-center gap-3">
-          {/* Language Switcher */}
-          <div className="flex items-center bg-white/5 border border-white/10 rounded-full p-0.5 font-mono text-xs">
-            <button
-              type="button"
-              onClick={() => onLanguageChange('uk')}
-              className={`px-2.5 py-1 rounded-full ${
-                currentLang === 'uk' ? 'bg-[#0000F2] text-white font-bold' : 'text-white/60'
-              }`}
-            >
-              UA
-            </button>
-            <button
-              type="button"
-              onClick={() => onLanguageChange('pl')}
-              className={`px-2.5 py-1 rounded-full ${
-                currentLang === 'pl' ? 'bg-[#0000F2] text-white font-bold' : 'text-white/60'
-              }`}
-            >
-              PL
-            </button>
-          </div>
-
-          <button
-            type="button"
-            onClick={onClose}
-            className="p-2 rounded-full bg-white/10 text-white"
-            aria-label="Zamknij"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          className="p-2 text-white hover:opacity-75 transition-opacity"
+          aria-label="Zamknij menu"
+        >
+          <X className="w-7 h-7" />
+        </button>
       </div>
 
-      {/* Nav Links */}
-      <nav className="flex flex-col gap-2.5 my-auto py-6 font-mono text-sm uppercase tracking-wider" aria-label="Mobile Navigation">
+      {/* Navigation List */}
+      <nav className="my-auto py-8 flex flex-col gap-6 font-mono text-xl uppercase tracking-wider">
         <a
-          href="#services"
-          onClick={handleLinkClick}
-          className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors"
+          href="#downloads"
+          onClick={onClose}
+          className="hover:underline underline-offset-8"
         >
-          <span>{t.nav.services}</span>
-          <ArrowRight className="w-4 h-4 text-[#00F0FF]" />
+          : {currentLang === 'uk' ? 'Категорії Авто' : 'Kategorie Pojazdów'} :
         </a>
-
+        <a
+          href="#features"
+          onClick={onClose}
+          className="hover:underline underline-offset-8"
+        >
+          : {currentLang === 'uk' ? '6 Філярів Сервісу' : '6 Filarów Serwisu'} :
+        </a>
+        <a
+          href="#portal"
+          onClick={onClose}
+          className="hover:underline underline-offset-8"
+        >
+          : {currentLang === 'uk' ? 'Пакети & Портал' : 'Pakiety & Portal'} :
+        </a>
         <a
           href="#calculator"
-          onClick={handleLinkClick}
-          className="flex items-center justify-between p-4 rounded-xl bg-[#0000F2]/25 border border-[#0000F2] text-white transition-colors"
+          onClick={onClose}
+          className="hover:underline underline-offset-8"
         >
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#00FF85] animate-pulse" />
-            <span>{t.nav.calculator}</span>
-          </div>
-          <span className="text-xs font-bold text-[#00F0FF] bg-black/40 px-2.5 py-0.5 rounded-full border border-white/10">
-            PLN
-          </span>
+          : {currentLang === 'uk' ? 'Онлайн Запис' : 'Rezerwacja Terminu'} :
         </a>
-
         <a
-          href="#wymiana-opon"
-          onClick={handleLinkClick}
-          className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors"
+          href="#faqs"
+          onClick={onClose}
+          className="hover:underline underline-offset-8"
         >
-          <div className="flex items-center gap-2.5">
-            <Disc className="w-4 h-4 text-[#00FF85]" />
-            <span>{t.nav.tires}</span>
-          </div>
-          <ArrowRight className="w-4 h-4 text-white/40" />
-        </a>
-
-        <a
-          href="#process"
-          onClick={handleLinkClick}
-          className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors"
-        >
-          <span>{t.nav.process}</span>
-          <ArrowRight className="w-4 h-4 text-white/40" />
-        </a>
-
-        <a
-          href="#reviews"
-          onClick={handleLinkClick}
-          className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors"
-        >
-          <span>{t.nav.reviews}</span>
-          <ArrowRight className="w-4 h-4 text-white/40" />
-        </a>
-
-        <a
-          href="#contact"
-          onClick={handleLinkClick}
-          className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors"
-        >
-          <span>{t.nav.contacts}</span>
-          <ArrowRight className="w-4 h-4 text-white/40" />
+          : FAQs :
         </a>
       </nav>
 
-      {/* Bottom Actions */}
-      <div className="space-y-3 pt-4 border-t border-white/10 font-mono text-xs">
-        <div className="text-white/60 flex items-center gap-2">
-          <MapPin className="w-3.5 h-3.5 text-[#00F0FF]" />
-          <span>ul. Kazimierza Jarochowskiego 105, Poznań</span>
+      {/* Bottom Info & Language */}
+      <div className="border-t border-white/20 pt-6 flex flex-col gap-4 font-mono text-xs">
+        <div className="flex items-center justify-between">
+          <span>Język / Мова:</span>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => onLanguageChange('pl')}
+              className={`px-3 py-1 border transition-all ${
+                currentLang === 'pl'
+                  ? 'bg-white text-[#0000F2] font-bold border-white'
+                  : 'text-white border-white/40'
+              }`}
+            >
+              POLSKI
+            </button>
+            <button
+              type="button"
+              onClick={() => onLanguageChange('uk')}
+              className={`px-3 py-1 border transition-all ${
+                currentLang === 'uk'
+                  ? 'bg-white text-[#0000F2] font-bold border-white'
+                  : 'text-white border-white/40'
+              }`}
+            >
+              УКРАЇНСЬКА
+            </button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-2.5 pt-2">
-          <a
-            href="tel:+48512145314"
-            className="flex items-center justify-center gap-2 py-3 rounded-full bg-white/10 border border-white/15 text-white font-bold"
-          >
-            <Phone className="w-4 h-4 text-[#00FF85]" />
-            <span>{t.nav.callUs}</span>
-          </a>
-
-          <a
-            href="#calculator"
-            onClick={handleLinkClick}
-            className="flex items-center justify-center gap-2 py-3 rounded-full hermes-btn-primary text-black font-bold"
-          >
-            <span>Kalkulator</span>
-            <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
+        <a
+          href="tel:+48512145314"
+          className="hermes-button hermes-button-secondary w-full py-3 text-xs font-bold gap-2 text-center"
+        >
+          <Phone className="w-4 h-4" />
+          <span>+48 512 145 314</span>
+        </a>
       </div>
     </div>
   );
