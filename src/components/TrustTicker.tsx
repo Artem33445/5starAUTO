@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Droplet } from 'lucide-react';
+import { Shield, Star, CheckCircle, Zap } from 'lucide-react';
 import { Language } from '@/types';
 import { translations } from '@/data/translations';
 
@@ -12,50 +12,28 @@ interface TrustTickerProps {
 export const TrustTicker: React.FC<TrustTickerProps> = ({ currentLang }) => {
   const t = translations[currentLang];
 
-  const itemsTop = [
-    { text: t.ticker.item1, icon: '✦', badge: 'DIAGNOSTYKA' },
-    { text: t.ticker.item2, icon: '✱', badge: 'KLIMATYZACJA' },
-    { text: t.ticker.item3, icon: '✸', badge: 'WULKANIZACJA' },
-    { text: t.ticker.item4, icon: '✦', badge: 'ROZRZĄD & SPRZĘGŁO' },
-  ];
-
-  const itemsBottom = [
-    { text: t.ticker.item5, icon: '✱', badge: 'SPRAWDZENIE AUTA' },
-    { text: t.ticker.item6, icon: '✸', badge: 'ZAWIESZENIE & HAMULCE' },
-    { text: t.ticker.item7, icon: '✦', badge: 'POZNAŃ GRUNWALD' },
-    { text: 'CZĘŚCI ORYGINALNE I SPRAWDZONE ZAMIENNIKI', icon: '✱', badge: '100% GWARANCJI' },
+  const items = [
+    { text: 'DIAGNOSTYKA OBD-II / CAN', badge: 'ACTIVE' },
+    { text: 'ORŁY MOTORYZACJI LAUREAT', badge: 'AWARD' },
+    { text: 'SERWIS KLIMATYZACJI R134A', badge: 'AUTO' },
+    { text: 'WYMIANA OPON & WYWAŻANIE', badge: '12-19″' },
+    { text: 'PISEMNA GWARANCJA NA CZĘŚCI', badge: '100%' },
+    { text: 'GOOGLE MAPS 4.9 ★ (250+ OPINII)', badge: 'VERIFIED' },
+    { text: 'POZNAŃ GRUNWALD • UL. JAROCHOWSKIEGO 105', badge: 'HQ' },
   ];
 
   return (
-    <div className="relative w-full overflow-hidden select-none border-y-[3px] border-black">
-      {/* Top Tape: Black Background */}
-      <div className="bg-black text-white py-3 border-b-[2px] border-black font-mono uppercase text-xs sm:text-sm tracking-widest flex w-max animate-marquee">
+    <div className="relative w-full overflow-hidden border-y border-white/10 bg-[#070712] py-3.5 font-mono text-xs select-none">
+      <div className="flex w-max animate-marquee items-center">
         {[0, 1].map((setIndex) => (
           <div key={setIndex} className="flex items-center shrink-0">
-            {itemsTop.map((item, idx) => (
+            {items.map((item, idx) => (
               <div key={idx} className="flex items-center mx-6 gap-3">
-                <span className="text-[#FFE600] text-lg font-black">{item.icon}</span>
-                <span className="font-mono font-black text-xs sm:text-sm text-white tracking-wider whitespace-nowrap">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0000F2] shadow-[0_0_8px_#0000F2]" />
+                <span className="text-white/80 font-bold uppercase tracking-wider whitespace-nowrap">
                   {item.text}
                 </span>
-                <span className="px-2 py-0.5 bg-[#FFE600] text-black font-mono font-black text-[10px] rounded border border-black shadow-[2px_2px_0px_#fff]">
-                  {item.badge}
-                </span>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-
-      {/* Bottom Tape: Acid Yellow Background, Opposite Direction */}
-      <div className="bg-[#FFE600] text-black py-2.5 font-mono uppercase text-[11px] sm:text-xs tracking-widest font-black flex w-max animate-marquee-reverse">
-        {[0, 1].map((setIndex) => (
-          <div key={setIndex} className="flex items-center shrink-0">
-            {itemsBottom.map((item, idx) => (
-              <div key={idx} className="flex items-center mx-6 gap-3">
-                <span className="text-black text-base">✸</span>
-                <span className="whitespace-nowrap">{item.text}</span>
-                <span className="px-2 py-0.5 bg-black text-[#FFE600] font-mono text-[9px] rounded font-extrabold">
+                <span className="px-2 py-0.5 rounded-full bg-white/5 border border-white/15 text-[#00F0FF] text-[10px] font-bold">
                   {item.badge}
                 </span>
               </div>
@@ -69,17 +47,10 @@ export const TrustTicker: React.FC<TrustTickerProps> = ({ currentLang }) => {
           0% { transform: translateX(0%); }
           100% { transform: translateX(-50%); }
         }
-        @keyframes marquee-reverse {
-          0% { transform: translateX(-50%); }
-          100% { transform: translateX(0%); }
-        }
         .animate-marquee {
-          animation: marquee 25s linear infinite;
+          animation: marquee 30s linear infinite;
         }
-        .animate-marquee-reverse {
-          animation: marquee-reverse 25s linear infinite;
-        }
-        .animate-marquee:hover, .animate-marquee-reverse:hover {
+        .animate-marquee:hover {
           animation-play-state: paused;
         }
       `}</style>

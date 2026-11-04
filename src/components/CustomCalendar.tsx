@@ -121,7 +121,6 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
       const cellDate = new Date(viewYear, viewMonth, d);
       const isPast = cellDate < today;
       const dayOfWeek = cellDate.getDay();
-      // 5starauto is closed on Saturday (6) and Sunday (0)
       const isClosed = dayOfWeek === 0 || dayOfWeek === 6;
 
       cells.push({
@@ -174,48 +173,46 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
 
   return (
     <div
-      className={`rounded-lg bg-white border-[2.5px] p-3.5 sm:p-4 text-black transition-all ${
-        hasError
-          ? 'border-[#FF2E2E] shadow-[4px_4px_0px_#FF2E2E]'
-          : 'border-black shadow-[4px_4px_0px_#000]'
+      className={`rounded-xl bg-[#090915] border p-3.5 sm:p-4 text-white transition-all font-mono ${
+        hasError ? 'border-[#FF3B30] shadow-[0_0_15px_rgba(255,59,48,0.3)]' : 'border-white/10'
       }`}
     >
       {/* Calendar Header: Month + Year & Nav Arrows */}
-      <div className="flex items-center justify-between mb-3 px-1 pb-2 border-b-[2px] border-black/10">
+      <div className="flex items-center justify-between mb-3 px-1 pb-2 border-b border-white/10">
         <div className="flex items-center gap-2">
-          <CalendarIcon className="w-4 h-4 text-black stroke-[2.5]" />
-          <span className="font-heading font-black text-sm sm:text-base text-black tracking-wide">
+          <CalendarIcon className="w-4 h-4 text-[#00F0FF]" />
+          <span className="font-heading font-bold text-sm sm:text-base text-white">
             {monthLabel} {viewYear}
           </span>
         </div>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1">
           <button
             type="button"
             onClick={prevMonth}
-            className="w-8 h-8 rounded bg-[#F7F4EB] hover:bg-[#FFE600] border-[2px] border-black flex items-center justify-center text-black font-black shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+            className="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white transition-all active:scale-95"
             aria-label="Previous month"
           >
-            <ChevronLeft className="w-4 h-4 stroke-[3]" />
+            <ChevronLeft className="w-4 h-4" />
           </button>
           <button
             type="button"
             onClick={nextMonth}
-            className="w-8 h-8 rounded bg-[#F7F4EB] hover:bg-[#FFE600] border-[2px] border-black flex items-center justify-center text-black font-black shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+            className="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white transition-all active:scale-95"
             aria-label="Next month"
           >
-            <ChevronRight className="w-4 h-4 stroke-[3]" />
+            <ChevronRight className="w-4 h-4" />
           </button>
         </div>
       </div>
 
       {/* Weekday Labels (Mon - Sun) */}
-      <div className="grid grid-cols-7 gap-1 text-center mb-2 border-b-[2px] border-black pb-1.5">
+      <div className="grid grid-cols-7 gap-1 text-center mb-1.5 border-b border-white/5 pb-1.5">
         {weekdays.map((w, idx) => (
           <div
             key={w}
-            className={`text-[11px] font-mono font-bold tracking-wider ${
-              idx >= 5 ? 'text-[#FF2E2E]' : 'text-black/70'
+            className={`text-[10px] font-bold tracking-wider ${
+              idx >= 5 ? 'text-[#FF3B30]' : 'text-white/40'
             }`}
           >
             {w}
@@ -230,7 +227,7 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
             return (
               <div
                 key={`dim-${idx}`}
-                className="h-8 sm:h-9 flex items-center justify-center text-xs font-mono text-black/20 select-none cursor-default"
+                className="h-8 sm:h-9 flex items-center justify-center text-xs text-white/20 select-none cursor-default"
               >
                 {cell.dayNumber}
               </div>
@@ -241,8 +238,8 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
             return (
               <div
                 key={`dis-${idx}`}
-                title={cell.isClosed ? (currentLang === 'uk' ? 'Вихідний (не працюємо)' : 'Nieczynne (weekend)') : undefined}
-                className="h-8 sm:h-9 flex items-center justify-center text-xs font-mono text-black/30 select-none cursor-not-allowed line-through decoration-black/30"
+                title={cell.isClosed ? (currentLang === 'uk' ? 'Вихідний' : 'Nieczynne') : undefined}
+                className="h-8 sm:h-9 flex items-center justify-center text-xs text-white/25 select-none cursor-not-allowed line-through"
               >
                 {cell.dayNumber}
               </div>
@@ -254,35 +251,32 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
               key={`act-${idx}`}
               type="button"
               onClick={() => onChange(cell.dateStr)}
-              className={`h-8 sm:h-9 rounded text-xs font-mono font-bold transition-all flex items-center justify-center relative active:translate-x-0.5 active:translate-y-0.5 ${
+              className={`h-8 sm:h-9 rounded-lg text-xs font-mono font-bold transition-all flex items-center justify-center relative ${
                 cell.isSelected
-                  ? 'bg-[#FFE600] text-black border-[2px] border-black shadow-[2px_2px_0px_#000] font-black z-10'
+                  ? 'bg-[#0000F2] text-white shadow-[0_0_15px_rgba(0,0,242,0.8)] border border-white/40 font-black'
                   : cell.isToday
-                  ? 'bg-[#5CE1E6] text-black border-[2px] border-black font-black'
-                  : 'text-black hover:bg-[#F7F4EB] hover:border-[1.5px] hover:border-black'
+                  ? 'border border-[#00F0FF] text-[#00F0FF] bg-white/5'
+                  : 'text-white/80 hover:bg-white/10 hover:text-white'
               }`}
             >
               {cell.dayNumber}
-              {cell.isToday && !cell.isSelected && (
-                <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-black" />
-              )}
             </button>
           );
         })}
       </div>
 
-      {/* Footer / Quick Select / Selected Date Display */}
-      <div className="mt-3 pt-2.5 border-t-[2px] border-black/10 flex items-center justify-between text-xs">
+      {/* Footer */}
+      <div className="mt-3 pt-2.5 border-t border-white/10 flex items-center justify-between text-xs font-mono">
         <button
           type="button"
           onClick={setToday}
-          className="text-[11px] font-mono font-bold text-black bg-[#FFE600] px-2 py-0.5 rounded border border-black shadow-[1px_1px_0px_#000] hover:bg-[#23E28B] transition-colors"
+          className="text-[11px] text-[#00F0FF] hover:underline"
         >
           {currentLang === 'uk' ? 'Сьогодні' : 'Dzisiaj'}
         </button>
 
         {formattedSelected && (
-          <span className="text-[11px] font-mono font-bold text-black bg-[#23E28B] px-2 py-0.5 rounded border border-black shadow-[1px_1px_0px_#000] truncate max-w-[200px]">
+          <span className="text-[11px] text-[#00FF85] font-bold truncate max-w-[200px]">
             {formattedSelected}
           </span>
         )}

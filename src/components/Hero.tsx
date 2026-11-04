@@ -2,25 +2,24 @@
 
 import React, { useState } from 'react';
 import {
-  Star,
-  Award,
-  ShieldCheck,
+  Copy,
+  Check,
+  Terminal,
   ArrowRight,
   Phone,
-  MapPin,
-  Car,
-  Wrench,
-  CheckCircle2,
-  AlertTriangle,
-  Droplet,
+  ShieldCheck,
+  Star,
   Sparkles,
   Zap,
-  Activity,
+  Car,
+  Layers,
+  CheckCircle2,
   Cpu,
-  Clock,
+  Wrench,
 } from 'lucide-react';
 import { Language } from '@/types';
 import { translations } from '@/data/translations';
+import { WhatsAppIcon, TelegramIcon } from '@/components/SocialIcons';
 
 interface HeroProps {
   currentLang: Language;
@@ -28,233 +27,290 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ currentLang }) => {
   const t = translations[currentLang];
+  const [copied, setCopied] = useState(false);
+  const [activeTab, setActiveTab] = useState<'terminal' | 'diagnostics' | 'platform'>('terminal');
+  const [selectedVehicleType, setSelectedVehicleType] = useState<'passenger' | 'suv' | 'bus'>('passenger');
 
-  // Interactive Live Symptom Stethoscope / Diagnostic Simulator
-  const [selectedSymptom, setSelectedSymptom] = useState<number>(0);
+  const cliCommand =
+    '5star service --book "Diagnostyka + Olej" --city "Poznan" --guarantee "100%"';
 
-  const symptoms = [
-    {
-      titlePl: 'Stuki w zawieszeniu / luz',
-      titleUk: 'Стукіт у підвісці / люфт',
-      servicePl: 'Przegląd zawieszenia + weryfikacja luzów',
-      serviceUk: 'Діагностика підвіски + огляд люфтів',
-      price: 80,
-      time: '30 min',
-      color: '#FFE600',
-    },
-    {
-      titlePl: 'Świeci Check Engine / błąd',
-      titleUk: 'Світиться Check Engine / помилка',
-      servicePl: 'Diagnostyka komputerowa silnika i sensorów',
-      serviceUk: "Комп'ютерна діагностика двигуна та систем",
-      price: 100,
-      time: '35 min',
-      color: '#23E28B',
-    },
-    {
-      titlePl: 'Klimatyzacja słabo chłodzi',
-      titleUk: 'Кондиціонер слабко охолоджує',
-      servicePl: 'Napełnienie czynnikiem R134A + odgrzybianie',
-      serviceUk: 'Заправка фреоном R134A + озонування',
-      price: 180,
-      time: '45 min',
-      color: '#5CE1E6',
-    },
-    {
-      titlePl: 'Wymiana oleju i filtrów',
-      titleUk: 'Заміна мастила та фільтрів',
-      servicePl: 'Wymiana oleju silnikowego + kasowanie inspekcji',
-      serviceUk: 'Заміна масла + фільтр + скидання інтервалу',
-      price: 120,
-      time: '40 min',
-      color: '#B886FF',
-    },
-    {
-      titlePl: 'Piski przy hamowaniu',
-      titleUk: 'Свист / скрегіт при гальмуванні',
-      servicePl: 'Wymiana klocków hamulcowych i czyszczenie zacisków',
-      serviceUk: 'Заміна гальмівних колодок + чищення супортів',
-      price: 150,
-      time: '50 min',
-      color: '#FF5E5E',
-    },
-  ];
+  const handleCopy = () => {
+    navigator.clipboard.writeText(cliCommand);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
-  const currentSymptom = symptoms[selectedSymptom];
+  const vehicleData = {
+    passenger: {
+      namePl: 'Samochody Osobowe',
+      nameUk: 'Легкові автомобілі',
+      subPl: 'Sedan, Kombi, Hatchback, Coupé',
+      subUk: 'Седани, універсали, хетчбеки',
+      oilPl: 'Serwis olejowy od 120 PLN',
+      diagPl: 'Diagnostyka OBD od 100 PLN',
+      tiresPl: 'Wymiana opon od 150 PLN',
+      color: '#00F0FF',
+    },
+    suv: {
+      namePl: 'SUV & Napęd 4x4',
+      nameUk: 'SUV та повний привід 4x4',
+      subPl: 'Crossover, Napędy AWD/4WD, Geometria',
+      subUk: 'Кросовери, AWD/4WD, геометрія',
+      oilPl: 'Serwis olejowy od 140 PLN',
+      diagPl: 'Diagnostyka napędów od 120 PLN',
+      tiresPl: 'Wymiana opon 4x4 od 200 PLN',
+      color: '#00FF85',
+    },
+    bus: {
+      namePl: 'Dostawcze & BUS',
+      nameUk: 'Мікроавтобуси & BUS',
+      subPl: 'Pojazdy użytkowe, L1-L4, do 3.5t',
+      subUk: 'Комерційні авто, фургони до 3.5т',
+      oilPl: 'Serwis olejowy od 160 PLN',
+      diagPl: 'Diagnostyka układu od 130 PLN',
+      tiresPl: 'Wymiana opon BUS od 240 PLN',
+      color: '#FFB800',
+    },
+  };
+
+  const currentVehicle = vehicleData[selectedVehicleType];
 
   return (
     <section
       id="hero"
-      className="relative pt-20 lg:pt-14 pb-16 lg:pb-24 overflow-hidden bg-neo-bg bg-neo-grid"
+      className="relative pt-32 sm:pt-36 lg:pt-44 pb-20 lg:pb-32 overflow-hidden bg-hermes-dark bg-hermes-radial bg-hermes-grid"
     >
-      {/* Background Decorative Liquid Floating Droplets */}
-      <div className="absolute top-12 right-12 w-32 h-32 bg-[#FFE600]/30 border-[3px] border-black/10 liquid-shape pointer-events-none animate-float hidden xl:block" />
-      <div className="absolute bottom-20 left-10 w-24 h-24 bg-[#5CE1E6]/30 border-[3px] border-black/10 liquid-shape pointer-events-none animate-float-delayed hidden xl:block" />
+      {/* Background Electric Klein Blue Atmosphere Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[450px] bg-[#0000F2]/25 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Floating Sticker Badges with Organic Bounce */}
-        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-6">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFE600] border-[2.5px] border-black shadow-[3px_3px_0px_#000] rotate-[-2deg] hover:rotate-0 spring-bounce font-mono font-bold text-xs text-black cursor-default">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FF2E2E] border border-black animate-ping" />
-            <span>POZNAŃ GRUNWALD ✦ JAROCHOWSKIEGO 105</span>
-          </div>
-
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#23E28B] border-[2.5px] border-black shadow-[3px_3px_0px_#000] rotate-[1.5deg] hover:rotate-0 spring-bounce font-mono font-bold text-xs text-black cursor-default">
-            <Droplet className="w-3.5 h-3.5 fill-current animate-drip" />
-            <span>MAMY WOLNE STANOWISKO DZISIAJ</span>
-          </div>
-
-          <div className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#B886FF] border-[2.5px] border-black shadow-[3px_3px_0px_#000] rotate-[-1deg] hover:rotate-0 spring-bounce font-mono font-bold text-xs text-black cursor-default">
-            <span>✱ 100% GWARANCJA NA ROBOCIZNĘ</span>
-          </div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        {/* Release Pill Badge (Hermes Agent Style) */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/15 text-white/90 font-mono text-xs mb-8 shadow-[0_0_20px_rgba(0,0,242,0.3)] hover:border-[#00F0FF]/50 transition-all cursor-default">
+          <span className="w-2 h-2 rounded-full bg-[#00FF85] animate-pulse" />
+          <span>5STAR AUTO AGENT</span>
+          <span className="text-white/40">•</span>
+          <span className="text-[#00F0FF]">POZNAŃ GRUNWALD</span>
+          <span className="text-white/40">•</span>
+          <span className="text-white/60">ul. Jarochowskiego 105</span>
         </div>
 
-        {/* Radical Wide Editorial Headline (Free of Boxing) */}
-        <div className="max-w-6xl mb-8 sm:mb-10">
-          <h1 className="font-heading font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[84px] text-black tracking-tight leading-[1.02]">
-            {t.hero.titleStart}{' '}
-            <span className="inline-block bg-[#FFE600] px-3 py-1 border-[3.5px] border-black shadow-[6px_6px_0px_#000] rotate-[-1.5deg] hover:rotate-0 spring-bounce my-1">
-              {t.hero.titleAccent}
-            </span>{' '}
-            <span className="inline-block">{t.hero.titleEnd}</span>
-          </h1>
+        {/* Massive 3-Line Stark Headline (Hermes Signature Typography) */}
+        <h1 className="font-heading font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[84px] text-white tracking-tight leading-[0.98] mb-6 max-w-5xl mx-auto">
+          {currentLang === 'uk' ? (
+            <>
+              Автосервіс майбутнього.
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-white/60">
+                Ремонт авто в Познані.
+              </span>
+              <br />
+              <span className="text-[#00F0FF]">Чесно та надійно.</span>
+            </>
+          ) : (
+            <>
+              Twój Warsztat.
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-white/60">
+                Który Dba O Wszystko.
+              </span>
+              <br />
+              <span className="text-[#00F0FF]">Bez Ściemy.</span>
+            </>
+          )}
+        </h1>
 
-          <p className="font-sans text-base sm:text-xl text-black/85 font-medium leading-relaxed max-w-3xl mt-5">
-            {t.hero.subtitle}
-          </p>
-        </div>
+        {/* Subtitle */}
+        <p className="font-sans text-base sm:text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed mb-10">
+          {t.hero.subtitle}
+        </p>
 
-        {/* Action Controls & Big Spring Buttons */}
-        <div className="flex flex-wrap items-center gap-3.5 sm:gap-5 mb-14">
+        {/* Action Button Deck (Hermes Style) */}
+        <div className="flex flex-wrap items-center justify-center gap-3.5 sm:gap-4 mb-14">
           <a
             href="#calculator"
-            className="inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-5 rounded-2xl bg-[#FFE600] hover:bg-[#FF5E5E] text-black border-[3px] border-black font-heading font-black text-base sm:text-lg uppercase tracking-wider shadow-[6px_6px_0px_#000] spring-bounce cursor-pointer group"
+            className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full hermes-btn-primary text-sm uppercase tracking-wider font-bold shadow-[0_0_25px_rgba(255,255,255,0.35)]"
           >
             <span>{t.hero.ctaCalc}</span>
-            <ArrowRight className="w-6 h-6 stroke-[3] group-hover:translate-x-1.5 transition-transform" />
+            <ArrowRight className="w-4 h-4" />
           </a>
 
           <a
             href="tel:+48512145314"
-            className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-4 sm:py-5 rounded-2xl bg-white hover:bg-[#5CE1E6] text-black border-[3px] border-black font-mono font-bold text-sm sm:text-base shadow-[5px_5px_0px_#000] spring-bounce"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 text-white font-mono text-sm transition-all"
           >
-            <Phone className="w-5 h-5 stroke-[2.5]" />
+            <Phone className="w-4 h-4 text-[#00F0FF]" />
             <span>{t.hero.ctaCall}</span>
           </a>
 
-          {/* Quick Direct Trust Google Stamp */}
-          <a
-            href="https://www.google.com/maps/place/Warsztat+Samochodowy+5starauto.pl/@52.3852144,16.8826007,17z"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-4 rounded-2xl bg-white border-[2.5px] border-black shadow-[4px_4px_0px_#000] spring-bounce text-xs font-mono font-bold"
-          >
-            <div className="flex items-center text-black">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3.5 h-3.5 fill-black stroke-black" />
-              ))}
-            </div>
-            <span className="font-black text-sm">4.9 / 5.0</span>
-            <span className="text-black/60 hidden sm:inline">(250+ opinii)</span>
-          </a>
+          {/* Direct Messengers */}
+          <div className="flex items-center gap-2">
+            <a
+              href="https://wa.me/48512145314"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-11 h-11 rounded-full bg-[#0000F2]/30 hover:bg-[#0000F2] border border-white/20 text-white flex items-center justify-center transition-all shadow-[0_0_15px_rgba(0,0,242,0.4)]"
+              title="WhatsApp"
+            >
+              <WhatsAppIcon className="w-5 h-5 fill-current" />
+            </a>
+            <a
+              href="https://t.me/+48512145314"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-11 h-11 rounded-full bg-[#0000F2]/30 hover:bg-[#0000F2] border border-white/20 text-white flex items-center justify-center transition-all shadow-[0_0_15px_rgba(0,0,242,0.4)]"
+              title="Telegram"
+            >
+              <TelegramIcon className="w-5 h-5 fill-current" />
+            </a>
+          </div>
         </div>
 
         {/* ─────────────────────────────────────────────────────────────
-            INTERACTIVE SYMPTOM STETHOSCOPE / LIVE DIAGNOSTIC SIMULATOR
-            Radical interactive brutalist feature: click a symptom, see instant estimate!
+            HERMES SIGNATURE INTERACTIVE TERMINAL BOX (CLI & PLATFORMS)
+            Exact architectural recreation of Hermes Agent's Install/Tab Box
             ───────────────────────────────────────────────────────────── */}
-        <div className="rounded-2xl bg-white border-[3px] border-black shadow-[8px_8px_0px_#000] overflow-hidden">
-          {/* Diagnostic Console Bar */}
-          <div className="bg-black text-white px-5 py-3.5 flex flex-wrap items-center justify-between gap-3 border-b-[3px] border-black font-mono text-xs font-bold">
-            <div className="flex items-center gap-2.5">
-              <span className="w-3 h-3 rounded-full bg-[#FF5E5E] border border-black inline-block animate-pulse" />
-              <span className="w-3 h-3 rounded-full bg-[#FFE600] border border-black inline-block" />
-              <span className="w-3 h-3 rounded-full bg-[#23E28B] border border-black inline-block" />
-              <span className="ml-2 uppercase tracking-wider text-white">
-                STETOSKOP_WARSZTATOWY_V2.5 • SZYBKI WYBÓR OBJAWU
-              </span>
+        <div className="max-w-4xl mx-auto rounded-2xl hermes-glass p-1.5 shadow-[0_20px_60px_rgba(0,0,242,0.25)] text-left">
+          {/* Top Interactive Mode Tabs (like Hermes' Desktop App / Cloud / Terminal) */}
+          <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5 font-mono text-xs">
+            <div className="flex items-center gap-2 sm:gap-4">
+              <button
+                type="button"
+                onClick={() => setActiveTab('terminal')}
+                className={`flex items-center gap-2 py-1 px-3 rounded-lg transition-all ${
+                  activeTab === 'terminal'
+                    ? 'bg-[#0000F2] text-white font-bold shadow-[0_0_12px_rgba(0,0,242,0.6)]'
+                    : 'text-white/60 hover:text-white'
+                }`}
+              >
+                <Terminal className="w-3.5 h-3.5 text-[#00F0FF]" />
+                <span>Auto Terminal CLI</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveTab('platform')}
+                className={`flex items-center gap-2 py-1 px-3 rounded-lg transition-all ${
+                  activeTab === 'platform'
+                    ? 'bg-[#0000F2] text-white font-bold shadow-[0_0_12px_rgba(0,0,242,0.6)]'
+                    : 'text-white/60 hover:text-white'
+                }`}
+              >
+                <Car className="w-3.5 h-3.5 text-[#00FF85]" />
+                <span>Klasy Pojazdów</span>
+              </button>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="bg-[#FFE600] text-black px-2 py-0.5 rounded text-[10px] font-black">
-                KLIKNIJ OBJAW SWOJEGO AUTA:
-              </span>
-            </div>
+
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] text-white/50">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#00FF85]" />
+              <span>Gwarancja 100%</span>
+            </span>
           </div>
 
-          <div className="p-6 sm:p-8 lg:p-10 bg-[#FFFDF8]">
-            {/* Symptom Selection Interactive Droplet Pills */}
-            <div className="flex flex-wrap gap-2.5 sm:gap-3 mb-8">
-              {symptoms.map((s, idx) => {
-                const isSelected = selectedSymptom === idx;
-                const title = currentLang === 'uk' ? s.titleUk : s.titlePl;
-
-                return (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => setSelectedSymptom(idx)}
-                    className={`px-4 sm:px-5 py-3 rounded-xl border-[2.5px] border-black font-heading font-black text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer ${
-                      isSelected
-                        ? 'shadow-[4px_4px_0px_#000] -translate-x-0.5 -translate-y-1 scale-105'
-                        : 'bg-white text-black shadow-[2px_2px_0px_#000] hover:bg-[#F7F4EB] hover:-translate-y-0.5'
-                    }`}
-                    style={{
-                      backgroundColor: isSelected ? s.color : undefined,
-                    }}
-                  >
-                    <span className="w-2 h-2 rounded-full bg-black shrink-0" />
-                    <span>{title}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Live Reactive Diagnosis Result Card */}
-            <div className="rounded-xl border-[3px] border-black p-6 sm:p-8 bg-[#F7F4EB] shadow-[6px_6px_0px_#000] flex flex-col md:flex-row md:items-center justify-between gap-6 spring-bounce">
-              <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-[#FFE600] font-mono text-xs font-bold uppercase">
-                  <Activity className="w-3.5 h-3.5 animate-pulse" />
-                  <span>ZALECANA PROCEDURA NAPRAWCZA:</span>
+          {/* Tab 1: Terminal CLI Command Copy Bar (Direct Hermes Recreation) */}
+          {activeTab === 'terminal' && (
+            <div className="p-5 sm:p-6 bg-black/60 rounded-xl space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#090915] border border-white/10 rounded-xl p-3 sm:p-4">
+                <div className="flex items-center gap-3 font-mono text-xs sm:text-sm text-white/90 overflow-x-auto">
+                  <span className="text-[#00F0FF] select-none">$</span>
+                  <code className="text-white font-medium select-all">
+                    {cliCommand}
+                  </code>
                 </div>
-                <h3 className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-black">
-                  {currentLang === 'uk' ? currentSymptom.serviceUk : currentSymptom.servicePl}
-                </h3>
-                <div className="flex flex-wrap items-center gap-4 font-mono text-xs text-black/80 font-bold pt-1">
-                  <span className="flex items-center gap-1.5">
-                    <Clock className="w-4 h-4 text-black" />
-                    Szacowany czas: {currentSymptom.time}
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <ShieldCheck className="w-4 h-4 text-[#23E28B] fill-black stroke-white" />
-                    Cena z gwarancją bez niespodzianek
-                  </span>
-                </div>
+
+                <button
+                  type="button"
+                  onClick={handleCopy}
+                  className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs transition-all shrink-0 border border-white/10"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-[#00FF85]" />
+                      <span className="text-[#00FF85]">Skopiowano</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5 text-white/70" />
+                      <span>Kopiuj</span>
+                    </>
+                  )}
+                </button>
               </div>
 
-              {/* Price & Action Deck */}
-              <div className="flex flex-col sm:flex-row md:flex-col items-start sm:items-center md:items-end justify-between gap-4 shrink-0 pt-4 md:pt-0 border-t-[2px] md:border-t-0 border-black/10">
-                <div className="text-left md:text-right">
-                  <span className="font-mono text-xs text-black/60 font-bold uppercase block">
-                    OD RĘKI OD:
-                  </span>
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="font-heading font-black text-4xl sm:text-5xl text-black">
-                      {currentSymptom.price}
+              {/* Terminal Quick Capability Stats */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 font-mono text-xs">
+                <div className="p-2.5 rounded-lg bg-white/5 border border-white/5">
+                  <span className="text-white/50 block text-[10px]">STANOWISKO</span>
+                  <span className="text-[#00FF85] font-bold">● Wolne od ręki</span>
+                </div>
+                <div className="p-2.5 rounded-lg bg-white/5 border border-white/5">
+                  <span className="text-white/50 block text-[10px]">CZAS PRZEGLĄDU</span>
+                  <span className="text-white font-bold">30-45 minut</span>
+                </div>
+                <div className="p-2.5 rounded-lg bg-white/5 border border-white/5">
+                  <span className="text-white/50 block text-[10px]">RATING GOOGLE</span>
+                  <span className="text-[#FFB800] font-bold">4.9 ★ (250+ opinii)</span>
+                </div>
+                <div className="p-2.5 rounded-lg bg-white/5 border border-white/5">
+                  <span className="text-white/50 block text-[10px]">CZĘŚCI</span>
+                  <span className="text-[#00F0FF] font-bold">OEM + Atestowane</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 2: Vehicle Platform Selector (Hermes macOS/Linux/Windows recreation) */}
+          {activeTab === 'platform' && (
+            <div className="p-5 sm:p-6 bg-black/60 rounded-xl space-y-5">
+              {/* Vehicle Type Switchers */}
+              <div className="flex flex-wrap gap-2">
+                {(['passenger', 'suv', 'bus'] as const).map((type) => (
+                  <button
+                    key={type}
+                    type="button"
+                    onClick={() => setSelectedVehicleType(type)}
+                    className={`px-4 py-2 rounded-xl font-mono text-xs transition-all flex items-center gap-2 border ${
+                      selectedVehicleType === type
+                        ? 'bg-[#0000F2] text-white font-bold border-white/40 shadow-[0_0_15px_rgba(0,0,242,0.6)]'
+                        : 'bg-white/5 text-white/70 border-white/10 hover:bg-white/10'
+                    }`}
+                  >
+                    <span>{vehicleData[type].namePl}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Vehicle Spec Card */}
+              <div className="p-5 rounded-xl bg-[#090915] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <div className="font-heading font-bold text-lg text-white">
+                    {currentVehicle.namePl}
+                  </div>
+                  <div className="font-mono text-xs text-white/60 mt-0.5">
+                    {currentVehicle.subPl}
+                  </div>
+                  <div className="flex flex-wrap gap-3 mt-3 font-mono text-xs">
+                    <span className="px-2 py-1 rounded bg-white/5 text-[#00F0FF] border border-white/10">
+                      {currentVehicle.oilPl}
                     </span>
-                    <span className="font-mono font-black text-lg text-black">PLN</span>
+                    <span className="px-2 py-1 rounded bg-white/5 text-[#00FF85] border border-white/10">
+                      {currentVehicle.diagPl}
+                    </span>
+                    <span className="px-2 py-1 rounded bg-white/5 text-[#FFB800] border border-white/10">
+                      {currentVehicle.tiresPl}
+                    </span>
                   </div>
                 </div>
 
                 <a
                   href="#calculator"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#FF5E5E] hover:bg-[#FFE600] text-black font-heading font-black text-xs sm:text-sm uppercase tracking-wider border-[2.5px] border-black shadow-[4px_4px_0px_#000] spring-bounce active:translate-x-0.5 active:translate-y-0.5"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl hermes-btn-blue text-xs uppercase font-bold shrink-0"
                 >
-                  <span>Zablokuj termin</span>
-                  <ArrowRight className="w-4 h-4 stroke-[3]" />
+                  <span>Dobierz termin</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </a>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </section>

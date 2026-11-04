@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Phone, Calculator } from 'lucide-react';
+import { Phone, Calculator, Sparkles } from 'lucide-react';
 import { Language } from '@/types';
 import { translations } from '@/data/translations';
 import { WhatsAppIcon, TelegramIcon } from '@/components/SocialIcons';
@@ -21,17 +21,17 @@ export const StickyMobileBar: React.FC<StickyMobileBarProps> = ({
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-30 lg:hidden bg-[#F7F4EB] border-t-[3px] border-black px-3 pt-2 pb-[calc(8px+env(safe-area-inset-bottom,0px))] shadow-[0_-4px_0px_#000]"
+      className="fixed bottom-0 left-0 right-0 z-30 lg:hidden bg-[#090915]/90 backdrop-blur-xl border-t border-white/10 px-3 pt-2.5 pb-[calc(10px+env(safe-area-inset-bottom,0px))] shadow-[0_-10px_30px_rgba(0,0,0,0.7)]"
     >
       <div className="flex items-center gap-2 max-w-md mx-auto">
         {/* Direct Call Button */}
         <a
           href="tel:+48512145314"
-          className="w-11 h-11 rounded-lg bg-white border-[2.5px] border-black text-black flex items-center justify-center shrink-0 shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+          className="w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-white flex items-center justify-center shrink-0 active:scale-95 transition-all"
           aria-label="Zadzwoń +48 512 145 314"
           title="Zadzwoń +48 512 145 314"
         >
-          <Phone className="w-5 h-5 text-black stroke-[2.5]" />
+          <Phone className="w-5 h-5 text-white" />
         </a>
 
         {/* Direct WhatsApp Button */}
@@ -39,11 +39,11 @@ export const StickyMobileBar: React.FC<StickyMobileBarProps> = ({
           href="https://wa.me/48512145314"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-11 h-11 rounded-lg bg-[#23E28B] text-black border-[2.5px] border-black flex items-center justify-center shrink-0 shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+          className="w-11 h-11 rounded-full bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/30 text-[#25D366] flex items-center justify-center shrink-0 active:scale-95 transition-all"
           aria-label="WhatsApp +48 512 145 314"
           title="WhatsApp"
         >
-          <WhatsAppIcon className="w-5 h-5 shrink-0 text-black fill-current" />
+          <WhatsAppIcon className="w-5 h-5 shrink-0 fill-current text-[#25D366]" />
         </a>
 
         {/* Direct Telegram Button */}
@@ -51,11 +51,11 @@ export const StickyMobileBar: React.FC<StickyMobileBarProps> = ({
           href="https://t.me/+48512145314"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-11 h-11 rounded-lg bg-[#5CE1E6] text-black border-[2.5px] border-black flex items-center justify-center shrink-0 shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+          className="w-11 h-11 rounded-full bg-[#00F0FF]/15 hover:bg-[#00F0FF]/25 border border-[#00F0FF]/30 text-[#00F0FF] flex items-center justify-center shrink-0 active:scale-95 transition-all"
           aria-label="Telegram +48 512 145 314"
           title="Telegram"
         >
-          <TelegramIcon className="w-5 h-5 shrink-0 text-black fill-current" />
+          <TelegramIcon className="w-5 h-5 shrink-0 fill-current text-[#00F0FF]" />
         </a>
 
         {/* Calculate in PLN Button */}
@@ -78,9 +78,9 @@ export const StickyMobileBar: React.FC<StickyMobileBarProps> = ({
               document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
             }
           }}
-          className="flex-1 h-11 px-3 rounded-lg bg-[#FFE600] hover:bg-[#FF5E5E] text-black font-heading font-black text-xs uppercase tracking-wider border-[2.5px] border-black flex items-center justify-center gap-1.5 shadow-[3px_3px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] transition-all truncate"
+          className="flex-1 h-11 px-4 rounded-full bg-[#0000F2] hover:bg-[#0000d6] text-white font-mono text-xs uppercase tracking-wider font-semibold border border-white/20 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,0,242,0.4)] active:scale-95 transition-all truncate"
         >
-          <Calculator className="w-4 h-4 shrink-0 stroke-[2.5]" />
+          <Sparkles className="w-4 h-4 shrink-0 text-[#00F0FF]" />
           <span className="truncate">
             {currentLang === 'uk' ? 'Розрахунок у PLN' : 'Kalkulator PLN'}
           </span>

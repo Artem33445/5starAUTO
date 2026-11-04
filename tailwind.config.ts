@@ -9,50 +9,42 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        neo: {
-          bg: "#F7F4EB", // Warm paper/cream base
-          cream: "#FFFDF8",
-          black: "#000000",
-          yellow: "#FFE600", // Acid Yellow
-          coral: "#FF5E5E",  // Hot Coral
-          mint: "#23E28B",   // Electric Mint
-          lilac: "#B886FF",  // Lilac / Violet
-          cyan: "#5CE1E6",   // Sky Cyan
-          orange: "#FF9F1C",
-          red: "#FF2E2E",
-          card: "#FFFFFF",
-        },
-        brand: {
-          red: "#FF2E2E",
-          darkred: "#D90429",
-          crimson: "#991B1B",
-          accent: "#FF5E5E",
-          light: "#FFE5E5",
-          gold: "#FFE600",
+        hermes: {
+          blue: "#0000F2",          // Electric Klein Blue (Hermes signature)
+          "blue-dark": "#0000C2",   // Deep Cobalt
+          "blue-darker": "#00008F",
+          "blue-light": "#3333FF",
+          "blue-glow": "rgba(0, 0, 242, 0.4)",
+          dark: "#090915",          // Deep void background
+          darker: "#05050C",
+          surface: "#101026",       // Card surface
+          "surface-light": "#191938",
+          border: "rgba(255, 255, 255, 0.12)",
+          "border-subtle": "rgba(255, 255, 255, 0.07)",
+          text: "#F2F2F7",
+          muted: "#9494AD",
+          accent: "#00F0FF",        // Electric Cyan
+          success: "#00FF85",       // Terminal Green
+          amber: "#FFB800",
         },
       },
       fontFamily: {
         heading: ["'Space Grotesk'", "sans-serif"],
-        display: ["'Lexend Mega'", "'Space Grotesk'", "sans-serif"],
+        display: ["'Syne'", "'Space Grotesk'", "sans-serif"],
         sans: ["'Public Sans'", "sans-serif"],
-        mono: ["'Space Mono'", "monospace"],
+        mono: ["'Space Mono'", "'JetBrains Mono'", "monospace"],
       },
       boxShadow: {
-        "neo-sm": "3px 3px 0px #000000",
-        "neo": "5px 5px 0px #000000",
-        "neo-lg": "8px 8px 0px #000000",
-        "neo-xl": "12px 12px 0px #000000",
-        "neo-hover": "7px 7px 0px #000000",
-        "neo-active": "1px 1px 0px #000000",
-      },
-      borderWidth: {
-        '2.5': '2.5px',
-        '3': '3px',
+        "hermes-glow": "0 0 35px rgba(0, 0, 242, 0.45)",
+        "hermes-glow-lg": "0 0 60px rgba(0, 0, 242, 0.6)",
+        "hermes-card": "0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 0 0 1px rgba(255, 255, 255, 0.08)",
+        "hermes-button": "0 0 20px rgba(0, 0, 242, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25)",
       },
       animation: {
-        "marquee": "marquee 32s linear infinite",
-        "marquee-reverse": "marquee-reverse 32s linear infinite",
-        "shake": "shake 0.4s ease-in-out",
+        "marquee": "marquee 28s linear infinite",
+        "marquee-reverse": "marquee-reverse 28s linear infinite",
+        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "glow-sweep": "glow-sweep 3s ease-in-out infinite",
       },
       keyframes: {
         marquee: {
@@ -63,10 +55,9 @@ const config: Config = {
           "0%": { transform: "translateX(-50%)" },
           "100%": { transform: "translateX(0%)" },
         },
-        shake: {
-          "0%, 100%": { transform: "translateX(0)" },
-          "20%, 60%": { transform: "translateX(-6px)" },
-          "40%, 80%": { transform: "translateX(6px)" },
+        "glow-sweep": {
+          "0%, 100%": { opacity: "0.4", transform: "scale(1)" },
+          "50%": { opacity: "0.8", transform: "scale(1.05)" },
         },
       },
     },

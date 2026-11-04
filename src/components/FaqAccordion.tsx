@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Plus, Minus } from 'lucide-react';
+import { ChevronDown, Plus, Minus, HelpCircle } from 'lucide-react';
 import { Language } from '@/types';
 import { translations } from '@/data/translations';
 
@@ -26,54 +26,41 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({ currentLang }) => {
   };
 
   return (
-    <section id="faq" className="py-16 sm:py-24 bg-neo-bg border-b-[3px] border-black relative">
+    <section id="faq" className="py-20 lg:py-32 bg-[#090915] border-b border-white/10 relative">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[#FFE600] border-[2px] border-black shadow-[2px_2px_0px_#000] rotate-[-1.5deg] font-mono font-bold text-xs text-black mb-3">
-            <span>✱ {t.faq.pill}</span>
+        <div className="mb-14 sm:mb-16 text-center">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 font-mono text-xs text-[#00F0FF] mb-3">
+            <span># CZĘSTE PYTANIA</span>
           </div>
-          <h2 className="font-heading font-extrabold text-3xl sm:text-5xl text-black tracking-tight">
+          <h2 className="font-heading font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
             {t.faq.title}
           </h2>
         </div>
 
-        {/* Neo-Brutalist Accordion Cards */}
-        <div className="space-y-4">
+        {/* Minimal Hermes Accordion Lines */}
+        <div className="divide-y divide-white/10 border-y border-white/10">
           {faqs.map((item, idx) => {
             const isOpen = openIndex === idx;
             return (
-              <div
-                key={idx}
-                className="rounded-lg bg-white border-[3px] border-black shadow-[4px_4px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_#000] transition-all overflow-hidden"
-              >
+              <div key={idx} className="transition-colors">
                 <button
                   type="button"
                   onClick={() => toggle(idx)}
-                  className={`w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-heading font-black text-base sm:text-lg text-black transition-colors ${
-                    isOpen ? 'bg-[#FFE600]' : 'bg-white hover:bg-[#F7F4EB]'
-                  }`}
+                  className="w-full py-5 sm:py-6 text-left flex items-center justify-between gap-4 font-heading font-bold text-base sm:text-lg text-white/90 hover:text-white transition-colors"
                 >
-                  <span className="pr-2 leading-snug">
-                    {item.q}
-                  </span>
+                  <span className="pr-4">{item.q}</span>
                   <div
-                    className={`w-8 h-8 rounded border-[2px] border-black flex items-center justify-center shrink-0 shadow-[2px_2px_0px_#000] transition-transform ${
-                      isOpen
-                        ? 'bg-black text-[#FFE600]'
-                        : 'bg-white text-black'
+                    className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 border border-white/10 transition-all ${
+                      isOpen ? 'bg-[#0000F2] text-white rotate-180 border-transparent shadow-[0_0_10px_rgba(0,0,242,0.8)]' : 'bg-white/5 text-white/50'
                     }`}
                   >
-                    {isOpen ? (
-                      <Minus className="w-4 h-4 stroke-[3]" />
-                    ) : (
-                      <Plus className="w-4 h-4 stroke-[3]" />
-                    )}
+                    <ChevronDown className="w-4 h-4" />
                   </div>
                 </button>
 
                 {isOpen && (
-                  <div className="p-5 sm:p-6 bg-[#FFFDF8] border-t-[2.5px] border-black font-sans text-sm sm:text-base text-black/90 font-medium leading-relaxed">
+                  <div className="pb-6 pr-6 text-sm sm:text-base text-white/70 leading-relaxed font-sans">
                     {item.a}
                   </div>
                 )}

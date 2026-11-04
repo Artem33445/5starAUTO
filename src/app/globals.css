@@ -1,23 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@600;700;800;900&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Space+Grotesk:wght@500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap&subset=cyrillic,cyrillic-ext,latin,latin-ext');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Space+Grotesk:wght@500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800;900&display=swap&subset=cyrillic,cyrillic-ext,latin,latin-ext');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --neo-bg: #F7F4EB;
-  --neo-cream: #FFFDF8;
-  --neo-black: #000000;
-  --neo-yellow: #FFE600;
-  --neo-coral: #FF5E5E;
-  --neo-mint: #23E28B;
-  --neo-lilac: #B886FF;
-  --neo-cyan: #5CE1E6;
+  --hermes-blue: #0000F2;
+  --hermes-blue-dark: #0000C2;
+  --hermes-dark: #090915;
+  --hermes-surface: #101026;
+  --hermes-text: #F2F2F7;
 }
 
 html {
-  background-color: #F7F4EB;
-  color: #000000;
+  background-color: #090915;
+  color: #F2F2F7;
   font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -27,138 +24,119 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-color: #F7F4EB;
-  color: #000000;
+  background-color: #090915;
+  color: #F2F2F7;
   overflow-x: hidden;
 }
 
-/* Neo-Brutalist Selection */
+/* Hermes Signature Selection */
 ::selection {
-  background-color: #FFE600;
-  color: #000000;
+  background-color: #0000F2;
+  color: #FFFFFF;
 }
 
-/* Spring-Physics Bounce Utilities */
-.spring-bounce {
-  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+/* Technical Blueprint Dot Matrix Grid */
+.bg-hermes-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
 }
 
-.spring-bounce:hover {
-  transform: translateY(-5px) scale(1.02);
-}
-
-.spring-bounce:active {
-  transform: translateY(2px) scale(0.96);
-  transition-duration: 0.1s;
-}
-
-/* Liquid Droplet Morph */
-@keyframes liquid-droplet {
-  0%, 100% {
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  }
-  33% {
-    border-radius: 35% 65% 60% 40% / 50% 60% 40% 50%;
-  }
-  66% {
-    border-radius: 50% 50% 35% 65% / 40% 45% 55% 60%;
-  }
-}
-
-.liquid-shape {
-  animation: liquid-droplet 8s ease-in-out infinite;
-}
-
-.liquid-shape-fast {
-  animation: liquid-droplet 4s ease-in-out infinite;
-}
-
-/* Rubber Band Bounce */
-@keyframes rubber-bounce {
-  0% { transform: scale(1); }
-  30% { transform: scaleX(1.2) scaleY(0.85); }
-  50% { transform: scaleX(0.88) scaleY(1.15); }
-  70% { transform: scaleX(1.08) scaleY(0.94); }
-  90% { transform: scaleX(0.98) scaleY(1.02); }
-  100% { transform: scale(1); }
-}
-
-.animate-rubber:hover {
-  animation: rubber-bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* Floating Vertical Bob */
-@keyframes float-bob {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-8px) rotate(1.5deg); }
-}
-
-.animate-float {
-  animation: float-bob 4s ease-in-out infinite;
-}
-
-.animate-float-delayed {
-  animation: float-bob 5s ease-in-out 1.5s infinite;
-}
-
-/* Droplet Drip Transition Effect */
-@keyframes drip-pulse {
-  0%, 100% { transform: scale(1) translateY(0); }
-  50% { transform: scale(1.06, 0.94) translateY(3px); }
-}
-
-.animate-drip {
-  animation: drip-pulse 2.5s ease-in-out infinite;
-}
-
-/* Halftone and Blueprint Grid */
-.bg-neo-dots {
-  background-image: radial-gradient(#000000 1.5px, transparent 1.5px);
+.bg-hermes-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
-.bg-neo-grid {
-  background-size: 36px 36px;
-  background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.06) 1.5px, transparent 1.5px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1.5px, transparent 1.5px);
+/* Electric Blue Glow Radial Field */
+.bg-hermes-radial {
+  background: radial-gradient(circle at 50% 0%, rgba(0, 0, 242, 0.35) 0%, rgba(9, 9, 21, 0) 70%);
 }
 
-/* Custom Chunky Scrollbar */
+/* Glass Surface with Inset Highlight (Hermes style) */
+.hermes-glass {
+  background: rgba(16, 16, 38, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.hermes-glass-hover {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hermes-glass-hover:hover {
+  background: rgba(25, 25, 56, 0.85);
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 0 30px rgba(0, 0, 242, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Hermes Signature Button */
+.hermes-btn-primary {
+  background: #FFFFFF;
+  color: #000000;
+  font-weight: 700;
+  border-radius: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.hermes-btn-primary:hover {
+  background: #F0F0FF;
+  transform: translateY(-1px);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.35);
+}
+.hermes-btn-primary:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.hermes-btn-blue {
+  background: #0000F2;
+  color: #FFFFFF;
+  font-weight: 700;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 25px rgba(0, 0, 242, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hermes-btn-blue:hover {
+  background: #1A1AFF;
+  box-shadow: 0 0 35px rgba(0, 0, 242, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+}
+.hermes-btn-blue:active {
+  transform: translateY(1px);
+}
+
+/* Sleek Minimal Scrollbar */
 ::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #F7F4EB;
-  border-left: 2.5px solid #000000;
+  background: #090915;
 }
 ::-webkit-scrollbar-thumb {
-  background: #FFE600;
-  border: 2.5px solid #000000;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF5E5E;
+  background: #0000F2;
 }
 
-/* Mobile scroll-lock */
+/* Mobile menu open */
 html.menu-open,
 body.menu-open {
   overflow: hidden !important;
   height: 100% !important;
   width: 100% !important;
-  touch-action: none !important;
 }
 
-/* Input validation error shake */
-@keyframes neo-shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-6px); }
-  40%, 80% { transform: translateX(6px); }
+/* Terminal Pulse Cursor */
+@keyframes term-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
-
-.input-error {
-  border-color: #FF2E2E !important;
-  background-color: #FFF5F5 !important;
-  animation: neo-shake 0.35s ease-in-out;
+.animate-cursor {
+  animation: term-blink 1s infinite;
 }

@@ -67,19 +67,15 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-neo-bg text-black selection:bg-neo-yellow selection:text-black font-sans">
-      {/* 
-        Dual Navigation System:
-        - On desktop (lg:), Header renders as the fixed Left Vertical Sidebar Dock (w-72 xl:w-80)
-        - On mobile (< lg), Header renders as the top brutalist bar
-      */}
+    <div className="min-h-screen bg-[#090915] text-white selection:bg-[#0000F2] selection:text-white font-sans relative overflow-x-hidden bg-hermes-grid">
+      {/* Hermes Floating Pill Navbar */}
       <Header
         currentLang={currentLang}
         onLanguageChange={handleLanguageChange}
         onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
       />
 
-      {/* 100dvh Fullscreen Light Mobile Menu with scroll-lock */}
+      {/* Fullscreen Mobile Drawer */}
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
@@ -87,8 +83,8 @@ export default function Home() {
         onLanguageChange={handleLanguageChange}
       />
 
-      {/* Main Canvas: offset by lg:pl-72 xl:pl-80 on desktop to align with the Vertical Sidebar Dock */}
-      <div className="lg:pl-72 xl:pl-80 w-full min-h-screen flex flex-col justify-between">
+      {/* Main Canvas with top padding for floating pill */}
+      <div className="w-full min-h-screen flex flex-col justify-between pt-16 sm:pt-20">
         <main className="w-full overflow-x-hidden">
           {/* Radical Kinetic Hero Section with Live Symptom Stethoscope */}
           <Hero currentLang={currentLang} />
