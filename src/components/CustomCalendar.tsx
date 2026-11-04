@@ -173,15 +173,15 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
 
   return (
     <div
-      className={`rounded-xl bg-[#090915] border p-3.5 sm:p-4 text-white transition-all font-mono ${
-        hasError ? 'border-[#FF3B30] shadow-[0_0_15px_rgba(255,59,48,0.3)]' : 'border-white/10'
+      className={`rounded-control bg-[#11141c] border p-3.5 transition-colors font-mono ${
+        hasError ? 'border-[#e5484d]' : 'border-[rgba(238,240,245,0.08)]'
       }`}
     >
       {/* Calendar Header: Month + Year & Nav Arrows */}
-      <div className="flex items-center justify-between mb-3 px-1 pb-2 border-b border-white/10">
+      <div className="flex items-center justify-between mb-3 px-1 pb-2 border-b border-[rgba(238,240,245,0.08)]">
         <div className="flex items-center gap-2">
-          <CalendarIcon className="w-4 h-4 text-[#00F0FF]" />
-          <span className="font-heading font-bold text-sm sm:text-base text-white">
+          <CalendarIcon className="w-4 h-4 text-[#7a8296]" />
+          <span className="font-medium text-xs sm:text-sm text-[#eef0f5]">
             {monthLabel} {viewYear}
           </span>
         </div>
@@ -190,29 +190,29 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
           <button
             type="button"
             onClick={prevMonth}
-            className="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white transition-all active:scale-95"
+            className="w-7 h-7 rounded-[6px] bg-[#1a1e28] hover:bg-[#232734] border border-[rgba(238,240,245,0.08)] flex items-center justify-center text-[#eef0f5] transition-colors"
             aria-label="Previous month"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-3.5 h-3.5" />
           </button>
           <button
             type="button"
             onClick={nextMonth}
-            className="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white transition-all active:scale-95"
+            className="w-7 h-7 rounded-[6px] bg-[#1a1e28] hover:bg-[#232734] border border-[rgba(238,240,245,0.08)] flex items-center justify-center text-[#eef0f5] transition-colors"
             aria-label="Next month"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
       {/* Weekday Labels (Mon - Sun) */}
-      <div className="grid grid-cols-7 gap-1 text-center mb-1.5 border-b border-white/5 pb-1.5">
+      <div className="grid grid-cols-7 gap-1 text-center mb-1.5 border-b border-[rgba(238,240,245,0.06)] pb-1.5">
         {weekdays.map((w, idx) => (
           <div
             key={w}
-            className={`text-[10px] font-bold tracking-wider ${
-              idx >= 5 ? 'text-[#FF3B30]' : 'text-white/40'
+            className={`text-[10px] font-medium tracking-wider ${
+              idx >= 5 ? 'text-[#e5484d]' : 'text-[#7a8296]'
             }`}
           >
             {w}
@@ -227,7 +227,7 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
             return (
               <div
                 key={`dim-${idx}`}
-                className="h-8 sm:h-9 flex items-center justify-center text-xs text-white/20 select-none cursor-default"
+                className="h-8 sm:h-9 flex items-center justify-center text-xs text-[#7a8296]/30 select-none cursor-default"
               >
                 {cell.dayNumber}
               </div>
@@ -239,7 +239,7 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
               <div
                 key={`dis-${idx}`}
                 title={cell.isClosed ? (currentLang === 'uk' ? 'Вихідний' : 'Nieczynne') : undefined}
-                className="h-8 sm:h-9 flex items-center justify-center text-xs text-white/25 select-none cursor-not-allowed line-through"
+                className="h-8 sm:h-9 flex items-center justify-center text-xs text-[#7a8296]/40 select-none cursor-not-allowed line-through"
               >
                 {cell.dayNumber}
               </div>
@@ -251,12 +251,12 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
               key={`act-${idx}`}
               type="button"
               onClick={() => onChange(cell.dateStr)}
-              className={`h-8 sm:h-9 rounded-lg text-xs font-mono font-bold transition-all flex items-center justify-center relative ${
+              className={`h-8 sm:h-9 rounded-[6px] text-xs transition-colors flex items-center justify-center relative tabular-nums ${
                 cell.isSelected
-                  ? 'bg-[#0000F2] text-white shadow-[0_0_15px_rgba(0,0,242,0.8)] border border-white/40 font-black'
+                  ? 'bg-[#2563eb] text-[#ffffff] font-semibold'
                   : cell.isToday
-                  ? 'border border-[#00F0FF] text-[#00F0FF] bg-white/5'
-                  : 'text-white/80 hover:bg-white/10 hover:text-white'
+                  ? 'border border-[#2563eb] text-[#60a5fa] bg-[#2563eb]/10'
+                  : 'text-[#a3a9b8] hover:bg-[#1a1e28] hover:text-[#eef0f5]'
               }`}
             >
               {cell.dayNumber}
@@ -266,17 +266,17 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
       </div>
 
       {/* Footer */}
-      <div className="mt-3 pt-2.5 border-t border-white/10 flex items-center justify-between text-xs font-mono">
+      <div className="mt-3 pt-2.5 border-t border-[rgba(238,240,245,0.08)] flex items-center justify-between text-xs font-mono">
         <button
           type="button"
           onClick={setToday}
-          className="text-[11px] text-[#00F0FF] hover:underline"
+          className="text-[11px] text-[#60a5fa] hover:underline"
         >
           {currentLang === 'uk' ? 'Сьогодні' : 'Dzisiaj'}
         </button>
 
         {formattedSelected && (
-          <span className="text-[11px] text-[#00FF85] font-bold truncate max-w-[200px]">
+          <span className="text-[11px] text-[#10b981] font-medium truncate max-w-[200px]">
             {formattedSelected}
           </span>
         )}

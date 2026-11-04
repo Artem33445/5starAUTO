@@ -1,9 +1,8 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { X, Phone, ArrowRight, MapPin } from 'lucide-react';
+import { X, Phone, ArrowRight } from 'lucide-react';
 import { Language } from '@/types';
-import { WhatsAppIcon, TelegramIcon } from '@/components/SocialIcons';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -33,104 +32,102 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-[100] bg-[#0000F2] text-white flex flex-col justify-between p-6 sm:p-8 overflow-y-auto select-none"
+      className="fixed inset-0 z-[100] bg-[#07080d] text-[#eef0f5] flex flex-col justify-between p-6 sm:p-8 overflow-y-auto"
       style={{ height: '100dvh' }}
     >
-      {/* Top Header */}
-      <div className="flex items-center justify-between border-b border-white/20 pb-4">
-        <div className="flex flex-col">
-          <span className="font-heading font-black text-2xl uppercase tracking-tight text-white leading-none">
-            5STAR
-          </span>
-          <span className="font-heading font-black text-2xl uppercase tracking-tight text-white leading-none">
-            AUTO
+      {/* Top row */}
+      <div className="flex items-center justify-between pb-4 border-b border-[rgba(238,240,245,0.08)]">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-[#10b981]" />
+          <span className="font-sans text-base font-semibold text-[#eef0f5] tracking-tight">
+            5STAR AUTO
           </span>
         </div>
 
         <button
           type="button"
           onClick={onClose}
-          className="p-2 text-white hover:opacity-75 transition-opacity"
-          aria-label="Zamknij menu"
+          className="p-1.5 text-[#a3a9b8] hover:text-[#eef0f5] rounded-[6px]"
+          aria-label="Zamknij"
         >
-          <X className="w-7 h-7" />
+          <X className="w-6 h-6" />
         </button>
       </div>
 
-      {/* Navigation List */}
-      <nav className="my-auto py-8 flex flex-col gap-6 font-mono text-xl uppercase tracking-wider">
+      {/* Nav links */}
+      <nav className="my-auto py-8 flex flex-col gap-6 text-xl text-[#eef0f5]">
         <a
-          href="#downloads"
+          href="#services"
           onClick={onClose}
-          className="hover:underline underline-offset-8"
+          className="hover:text-[#ffffff] transition-colors"
         >
-          : {currentLang === 'uk' ? 'Категорії Авто' : 'Kategorie Pojazdów'} :
+          {currentLang === 'uk' ? 'Послуги' : 'Zakres usług'}
         </a>
         <a
-          href="#features"
+          href="#packages"
           onClick={onClose}
-          className="hover:underline underline-offset-8"
+          className="hover:text-[#ffffff] transition-colors"
         >
-          : {currentLang === 'uk' ? '6 Філярів Сервісу' : '6 Filarów Serwisu'} :
-        </a>
-        <a
-          href="#portal"
-          onClick={onClose}
-          className="hover:underline underline-offset-8"
-        >
-          : {currentLang === 'uk' ? 'Пакети & Портал' : 'Pakiety & Portal'} :
+          {currentLang === 'uk' ? 'Пакети' : 'Pakiety serwisowe'}
         </a>
         <a
           href="#calculator"
           onClick={onClose}
-          className="hover:underline underline-offset-8"
+          className="hover:text-[#ffffff] transition-colors"
         >
-          : {currentLang === 'uk' ? 'Онлайн Запис' : 'Rezerwacja Terminu'} :
+          {currentLang === 'uk' ? 'Калькулятор' : 'Wycena i rezerwacja'}
         </a>
         <a
           href="#faqs"
           onClick={onClose}
-          className="hover:underline underline-offset-8"
+          className="hover:text-[#ffffff] transition-colors"
         >
-          : FAQs :
+          FAQ
+        </a>
+        <a
+          href="#contact"
+          onClick={onClose}
+          className="hover:text-[#ffffff] transition-colors"
+        >
+          {currentLang === 'uk' ? 'Контакти' : 'Kontakt'}
         </a>
       </nav>
 
-      {/* Bottom Info & Language */}
-      <div className="border-t border-white/20 pt-6 flex flex-col gap-4 font-mono text-xs">
-        <div className="flex items-center justify-between">
-          <span>Język / Мова:</span>
+      {/* Bottom controls */}
+      <div className="pt-6 border-t border-[rgba(238,240,245,0.08)] space-y-4">
+        <div className="flex items-center justify-between text-xs font-mono">
+          <span className="text-[#7a8296]">Język / Мова</span>
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => onLanguageChange('pl')}
-              className={`px-3 py-1 border transition-all ${
+              className={`px-3 py-1 rounded-[4px] border ${
                 currentLang === 'pl'
-                  ? 'bg-white text-[#0000F2] font-bold border-white'
-                  : 'text-white border-white/40'
+                  ? 'bg-[#1a1e28] text-[#eef0f5] border-[rgba(238,240,245,0.2)] font-medium'
+                  : 'text-[#7a8296] border-[rgba(238,240,245,0.06)]'
               }`}
             >
-              POLSKI
+              Polski
             </button>
             <button
               type="button"
               onClick={() => onLanguageChange('uk')}
-              className={`px-3 py-1 border transition-all ${
+              className={`px-3 py-1 rounded-[4px] border ${
                 currentLang === 'uk'
-                  ? 'bg-white text-[#0000F2] font-bold border-white'
-                  : 'text-white border-white/40'
+                  ? 'bg-[#1a1e28] text-[#eef0f5] border-[rgba(238,240,245,0.2)] font-medium'
+                  : 'text-[#7a8296] border-[rgba(238,240,245,0.06)]'
               }`}
             >
-              УКРАЇНСЬКА
+              Українська
             </button>
           </div>
         </div>
 
         <a
           href="tel:+48512145314"
-          className="hermes-button hermes-button-secondary w-full py-3 text-xs font-bold gap-2 text-center"
+          className="unslop-btn-primary w-full h-11 text-sm font-medium"
         >
-          <Phone className="w-4 h-4" />
+          <Phone className="w-4 h-4 text-[#0b0d14]" />
           <span>+48 512 145 314</span>
         </a>
       </div>

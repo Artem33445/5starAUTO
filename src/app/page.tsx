@@ -4,10 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { Language } from '@/types';
 import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
-import { DownloadsSection } from '@/components/DownloadsSection';
-import { FeaturesSection } from '@/components/FeaturesSection';
-import { PortalSection } from '@/components/PortalSection';
-import { FaqAccordion } from '@/components/FaqAccordion';
+import { ServicesSection } from '@/components/ServicesSection';
+import { PackagesSection } from '@/components/PackagesSection';
+import { BookingCalculator } from '@/components/BookingCalculator';
+import { FaqSection } from '@/components/FaqSection';
 import { Footer } from '@/components/Footer';
 import { MobileMenu } from '@/components/MobileMenu';
 import { StickyMobileBar } from '@/components/StickyMobileBar';
@@ -15,6 +15,10 @@ import { StickyMobileBar } from '@/components/StickyMobileBar';
 export default function Home() {
   const [currentLang, setCurrentLang] = useState<Language>('pl');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState<{ name: string; price: string }>({
+    name: 'Standard',
+    price: '350 zł',
+  });
 
   useEffect(() => {
     const savedLang = localStorage.getItem('5star_lang') as Language;
@@ -38,9 +42,17 @@ export default function Home() {
     }
   };
 
+  const handleSelectPackage = (name: string, price: string) => {
+    setSelectedPackage({ name, price });
+  };
+
+  const handleSelectService = (serviceName: string) => {
+    setSelectedPackage({ name: serviceName, price: 'od 120 zł' });
+  };
+
   return (
-    <div className="min-h-screen bg-[#0000F2] text-white font-sans selection:bg-[#0000F2] selection:text-white">
-      {/* 1:1 Replica of Hermes Marketing Header */}
+    <div className="min-h-screen bg-[#0b0d14] text-[#eef0f5] font-sans selection:bg-[#2563eb] selection:text-white">
+      {/* Quiet top header */}
       <Header
         currentLang={currentLang}
         onLanguageChange={handleLanguageChange}
@@ -56,29 +68,39 @@ export default function Home() {
       />
 
       <main className="w-full">
-        {/* Section 1: Hero (.landing-hero) in Hermes Electric Blue */}
+        {/* Hero Section: Asymmetric split with live diagnostic bay preview */}
         <Hero currentLang={currentLang} />
 
-        {/* Section 2: Platforms / Vehicle Categories (.landing-downloads) in Hermes Electric Blue */}
-        <DownloadsSection currentLang={currentLang} />
+        {/* Services & Capabilities: 6 deliberate mechanical services */}
+        <ServicesSection
+          currentLang={currentLang}
+          onSelectService={handleSelectService}
+        />
 
-        {/* Section 3: 6 Features Grid (.landing-features) in Hermes White Paper */}
-        <FeaturesSection currentLang={currentLang} />
+        {/* Service Packages & Pricing */}
+        <PackagesSection
+          currentLang={currentLang}
+          onSelectPackage={handleSelectPackage}
+        />
 
-        {/* Section 4: Portal & Service Packages (.landing-portal) in Hermes White Paper */}
-        <PortalSection currentLang={currentLang} />
+        {/* Interactive Booking Calculator & Custom Calendar */}
+        <BookingCalculator
+          currentLang={currentLang}
+          selectedPackageName={selectedPackage.name}
+          selectedPackagePrice={selectedPackage.price}
+        />
 
-        {/* Section 5: FAQs with dotted blue borders (#faqs) in Hermes White Paper */}
-        <FaqAccordion currentLang={currentLang} />
+        {/* FAQ Accordion */}
+        <FaqSection currentLang={currentLang} />
       </main>
 
-      {/* Section 6: Footer with giant ghost watermark in Hermes White Paper */}
+      {/* Footer */}
       <Footer
         currentLang={currentLang}
         onLanguageChange={handleLanguageChange}
       />
 
-      {/* Sticky Mobile Converter Bar */}
+      {/* Quiet Sticky Mobile Converter Bar */}
       <StickyMobileBar
         currentLang={currentLang}
         isMenuOpen={isMobileMenuOpen}

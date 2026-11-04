@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Phone, MapPin, ShieldCheck, Clock, Award } from 'lucide-react';
+import { Phone, MapPin, Clock, ShieldCheck } from 'lucide-react';
 import { Language } from '@/types';
 import { WhatsAppIcon, TelegramIcon } from '@/components/SocialIcons';
 
@@ -15,155 +15,132 @@ export const Footer: React.FC<FooterProps> = ({
   onLanguageChange,
 }) => {
   return (
-    <footer className="bg-white text-[#000030] pt-16 pb-12 border-t border-black/10 relative overflow-hidden select-none" id="contact">
-      {/* Colossal Ghost Watermark matching Hermes exact styling */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none w-full text-center select-none overflow-hidden leading-none mb-6 opacity-[0.04]"
-      >
-        <span className="font-heading font-black text-[18vw] uppercase tracking-tighter text-[#0000F2] block">
-          5STAR AUTO
-        </span>
-      </div>
-
-      <div className="mx-auto w-full max-w-[1240px] px-6 sm:px-10 lg:px-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-black/10">
-          {/* Column 1: Identity & Copyright */}
+    <footer id="contact" className="bg-[#07080d] text-[#eef0f5] pt-16 pb-12 border-t border-[rgba(238,240,245,0.08)]">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-[rgba(238,240,245,0.08)]">
+          {/* Column 1: Product info */}
           <div>
-            <span className="font-heading font-black text-2xl uppercase tracking-tight text-[#000030] block mb-2">
-              5STAR<span className="text-[#0000F2]">AUTO</span>
-            </span>
-            <p className="font-sans text-xs text-[#000030]/70 mb-4 leading-relaxed">
-              Certyfikowany warsztat samochodowy i stacja diagnostyczna w Poznaniu. Naprawy mechaniczne, elektronika OBD2 oraz wulkanizacja 3D.
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-2 h-2 rounded-full bg-[#10b981]" />
+              <span className="text-base font-semibold text-[#eef0f5] tracking-tight">
+                5STAR AUTO
+              </span>
+            </div>
+            <p className="text-xs text-[#a3a9b8] leading-relaxed mb-4">
+              Certyfikowany serwis mechaniczny i stacja diagnostyczna samochodów osobowych, SUV oraz dostawczych w Poznaniu.
             </p>
-            <p className="font-mono text-[11px] text-[#000030]/50 uppercase">
-              © 2026, 5STAR AUTO Sp. z o.o.<br />
-              NIP: 123-456-78-90 • REGON: 987654321
+            <p className="text-[11px] font-mono text-[#7a8296]">
+              © 2026 5STAR AUTO Sp. z o.o.<br />
+              NIP: 123-456-78-90 · REGON: 987654321
             </p>
           </div>
 
-          {/* Column 2: Standards & Badges */}
+          {/* Column 2: Location and hours */}
           <div>
-            <p className="font-mono text-xs uppercase tracking-wider text-[#0000F2] font-semibold mb-3">
-              Standardy & Certyfikaty
-            </p>
-            <ul className="space-y-2 font-mono text-xs text-[#000030]/80">
-              <li className="flex items-center gap-2">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#0000F2]" />
-                <span>Gwarancja 24 Miesiące</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Award className="w-3.5 h-3.5 text-[#0000F2]" />
-                <span>Certyfikacja Bosch & OEM</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Clock className="w-3.5 h-3.5 text-[#0000F2]" />
-                <span>Ekspresowa diagnoza w 30 min</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-[#0000F2]" />
+            <div className="text-xs font-mono text-[#7a8296] uppercase tracking-wider mb-3">
+              Lokalizacja & Godziny
+            </div>
+            <div className="space-y-2 text-xs text-[#a3a9b8]">
+              <div className="flex items-start gap-2">
+                <MapPin className="w-3.5 h-3.5 text-[#7a8296] shrink-0 mt-0.5" />
                 <span>Poznań, ul. Przykładowa 12</span>
-              </li>
-            </ul>
+              </div>
+              <div className="flex items-start gap-2">
+                <Clock className="w-3.5 h-3.5 text-[#7a8296] shrink-0 mt-0.5" />
+                <div>
+                  <span>Pn – Pt: 08:00 – 19:00</span><br />
+                  <span>Sobota: 09:00 – 15:00</span>
+                </div>
+              </div>
+              <div className="flex items-start gap-2 pt-1">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#10b981] shrink-0 mt-0.5" />
+                <span className="text-[#eef0f5]">Gwarancja 24 miesiące</span>
+              </div>
+            </div>
           </div>
 
-          {/* Column 3: Quick Navigation */}
+          {/* Column 3: Navigation */}
           <div>
-            <p className="font-mono text-xs uppercase tracking-wider text-[#0000F2] font-semibold mb-3">
-              Pakiety & Usługi
-            </p>
-            <ul className="space-y-2 font-mono text-xs text-[#000030]/80">
+            <div className="text-xs font-mono text-[#7a8296] uppercase tracking-wider mb-3">
+              Nawigacja
+            </div>
+            <ul className="space-y-2 text-xs text-[#a3a9b8]">
               <li>
-                <a href="#downloads" className="hover:text-[#0000F2] transition-colors underline-offset-2 hover:underline">
-                  Kategorie Pojazdów
+                <a href="#services" className="hover:text-[#eef0f5] transition-colors">
+                  Zakres usług
                 </a>
               </li>
               <li>
-                <a href="#features" className="hover:text-[#0000F2] transition-colors underline-offset-2 hover:underline">
-                  6 Filarów Serwisu
+                <a href="#packages" className="hover:text-[#eef0f5] transition-colors">
+                  Cennik pakietów
                 </a>
               </li>
               <li>
-                <a href="#portal" className="hover:text-[#0000F2] transition-colors underline-offset-2 hover:underline">
-                  Pakiety & Cennik
+                <a href="#calculator" className="hover:text-[#eef0f5] transition-colors">
+                  Rezerwacja terminu
                 </a>
               </li>
               <li>
-                <a href="#calculator" className="hover:text-[#0000F2] transition-colors underline-offset-2 hover:underline">
-                  Rezerwacja Terminu
-                </a>
-              </li>
-              <li>
-                <a href="#faqs" className="hover:text-[#0000F2] transition-colors underline-offset-2 hover:underline">
-                  Częste Pytania (FAQ)
+                <a href="#faqs" className="hover:text-[#eef0f5] transition-colors">
+                  Pytania i odpowiedzi
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Column 4: Contact & Social */}
-          <div id="location">
-            <p className="font-mono text-xs uppercase tracking-wider text-[#0000F2] font-semibold mb-3">
-              Kontakt & Wizyta
-            </p>
-            <p className="font-sans text-xs text-[#000030]/70 mb-3">
-              Poniedziałek – Piątek: 08:00 – 19:00<br />
-              Sobota: 09:00 – 15:00
-            </p>
+          {/* Column 4: Contact channels */}
+          <div>
+            <div className="text-xs font-mono text-[#7a8296] uppercase tracking-wider mb-3">
+              Kontakt bezpośredni
+            </div>
             <a
               href="tel:+48512145314"
-              className="font-mono text-sm font-bold text-[#0000F2] block mb-3 hover:underline"
+              className="text-base font-medium font-mono text-[#eef0f5] hover:text-[#ffffff] block mb-3"
             >
               +48 512 145 314
             </a>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <a
                 href="https://wa.me/48512145314"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-none border border-black/15 flex items-center justify-center text-[#000030] hover:text-[#0000F2] hover:border-[#0000F2] transition-colors"
+                className="w-8 h-8 rounded-[6px] bg-[#11141c] border border-[rgba(238,240,245,0.08)] hover:border-[rgba(238,240,245,0.2)] flex items-center justify-center text-[#a3a9b8] hover:text-[#eef0f5] transition-colors"
                 title="WhatsApp"
               >
-                <WhatsAppIcon className="w-4 h-4 fill-current" />
+                <WhatsAppIcon className="w-3.5 h-3.5 fill-current" />
               </a>
               <a
                 href="https://t.me/+48512145314"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-none border border-black/15 flex items-center justify-center text-[#000030] hover:text-[#0000F2] hover:border-[#0000F2] transition-colors"
+                className="w-8 h-8 rounded-[6px] bg-[#11141c] border border-[rgba(238,240,245,0.08)] hover:border-[rgba(238,240,245,0.2)] flex items-center justify-center text-[#a3a9b8] hover:text-[#eef0f5] transition-colors"
                 title="Telegram"
               >
-                <TelegramIcon className="w-4 h-4 fill-current" />
+                <TelegramIcon className="w-3.5 h-3.5 fill-current" />
               </a>
               <a
                 href="https://maps.google.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-none border border-black/15 flex items-center justify-center text-[#000030] hover:text-[#0000F2] hover:border-[#0000F2] transition-colors"
+                className="w-8 h-8 rounded-[6px] bg-[#11141c] border border-[rgba(238,240,245,0.08)] hover:border-[rgba(238,240,245,0.2)] flex items-center justify-center text-[#a3a9b8] hover:text-[#eef0f5] transition-colors"
                 title="Google Maps"
               >
-                <MapPin className="w-4 h-4" />
+                <MapPin className="w-3.5 h-3.5" />
               </a>
             </div>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-[#000030]/60">
-          <p>
-            Poznań, Polska • Wszystkie prawa zastrzeżone
-          </p>
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#7a8296]">
+          <span>Wszelkie prawa zastrzeżone</span>
           <div className="flex items-center gap-4">
-            <a href="#" className="hover:underline">Polityka Prywatności</a>
-            <span>•</span>
-            <a href="#" className="hover:underline">Regulamin</a>
-            <span>•</span>
             <button
               type="button"
               onClick={() => onLanguageChange(currentLang === 'pl' ? 'uk' : 'pl')}
-              className="text-[#0000F2] font-semibold hover:underline uppercase"
+              className="text-[#a3a9b8] hover:text-[#eef0f5] transition-colors"
             >
-              {currentLang === 'pl' ? 'Змінити мову на Українську' : 'Zmień na Polski'}
+              {currentLang === 'pl' ? 'Змінити на Українську' : 'Przełącz na Polski'}
             </button>
           </div>
         </div>
