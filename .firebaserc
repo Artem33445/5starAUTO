@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "starauto-64d2a"
+    "default": "redbox-54394",
+    "redbox": "redbox-54394",
+    "starauto": "starauto-64d2a"
   }
 }
