@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Phone, Menu } from 'lucide-react';
 import { Language } from '@/types';
+import { MegaMenu } from './MegaMenu';
 
 interface HeaderProps {
   currentLang: Language;
@@ -15,8 +16,33 @@ export const Header: React.FC<HeaderProps> = ({
   onLanguageChange,
   onOpenMobileMenu,
 }) => {
+  const [isMegaOpen, setIsMegaOpen] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    setIsMegaOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsMegaOpen(false);
+    }, 180);
+  };
+
+  const handleClose = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    setIsMegaOpen(false);
+  };
+
   return (
-    <header className="sticky top-0 z-50 bg-[#07080d]/90 backdrop-blur-md border-b border-[rgba(238,240,245,0.08)]">
+    <header className="sticky top-0 z-50 bg-[#07080d]/95 backdrop-blur-md border-b border-[rgba(238,240,245,0.08)]">
       <div className="max-w-6xl mx-auto px-6 h-14 sm:h-16 flex items-center justify-between">
         {/* Logo and signature status */}
         <div className="flex items-center gap-4">
@@ -35,10 +61,26 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Quiet desktop nav links */}
-        <nav className="hidden lg:flex items-center gap-6 text-sm text-[#a3a9b8]">
-          <a href="#services" className="hover:text-[#eef0f5] transition-colors">
-            {currentLang === 'uk' ? 'Послуги' : 'Usługi'}
-          </a>
+        <nav className="hidden lg:flex items-center gap-5 text-sm text-[#a3a9b8]">
+          <div
+            className="relative"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <a
+              href="#services"
+              className={`sofini-pill-btn ${isMegaOpen ? 'is-active' : ''}`}
+              onClick={handleClose}
+            >
+              <span className="btn-text" data-text>
+                {currentLang === 'uk' ? 'Послуги' : 'Usługi'}
+              </span>
+              <span className="btn-text btn-duplicate" aria-hidden="true">
+                {currentLang === 'uk' ? 'Послуги' : 'Usługi'}
+              </span>
+            </a>
+          </div>
+
           <a href="#packages" className="hover:text-[#eef0f5] transition-colors">
             {currentLang === 'uk' ? 'Пакети' : 'Pakiety'}
           </a>
@@ -109,6 +151,15 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         </div>
       </div>
+
+      {/* Sofini Full-width Mega Menu */}
+      <MegaMenu
+        isOpen={isMegaOpen}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClose={handleClose}
+        currentLang={currentLang}
+      />
     </header>
   );
 };
