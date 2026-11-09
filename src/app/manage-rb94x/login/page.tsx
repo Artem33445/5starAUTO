@@ -45,7 +45,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#08090C] text-white flex items-center justify-center p-4 relative overflow-hidden select-none">
+    <div className="min-h-screen bg-[#08090C] text-white flex items-center justify-center p-4 relative overflow-hidden ">
       {/* Background ambient red glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-80 h-80 bg-red-500/5 rounded-full blur-[100px] pointer-events-none" />

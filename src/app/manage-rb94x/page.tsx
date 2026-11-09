@@ -474,7 +474,7 @@ export default function AdminDashboardPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#08090C] text-white flex flex-col font-sans select-none">
+    <div className="min-h-screen bg-[#08090C] text-white flex flex-col font-sans ">
       {/* Top Navbar */}
       <header className="sticky top-0 z-50 bg-[#08090C]/95 backdrop-blur-xl border-b border-white/[0.04] px-4 sm:px-8 py-3.5 flex items-center justify-between shadow-md">
         <div className="flex items-center gap-4">

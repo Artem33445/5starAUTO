@@ -21,9 +21,9 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
+  
+  
+  
   touch-action: manipulation;
 }
 
@@ -33,9 +33,9 @@ body {
   background-color: var(--bg-main);
   color: #0f172a;
   overflow-x: hidden;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
+  
+  
+  
 }
 
 /* Allow text selection & caret editing inside inputs and textareas */
@@ -99,4 +99,72 @@ input, select, textarea {
 
 .pulse-red-glow {
   animation: red-pulse-glow 2.2s ease-in-out infinite;
+}
+
+/* ========================================================
+   SEO & UX Text Selection Rules (Rule 1, 2, 3)
+   ======================================================== */
+
+/* Rule 2: Meaningful semantic, commercial & contact content must always be selectable */
+h1, h2, h3, h4, h5, h6,
+p, span, article, section, blockquote,
+ul, ol, li, dl, dt, dd,
+address, time, pre, code,
+table, th, td, caption,
+input, textarea, select, [contenteditable="true"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Contact info, phones, emails & prices must always be selectable */
+a[href^="tel:"],
+a[href^="mailto:"],
+address,
+.selectable-text,
+[data-selectable="true"] {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  user-select: text !important;
+}
+
+/* Rule 3: Pure UI controls: disable text selection to prevent accidental blue highlighting on rapid clicks */
+button,
+[role="button"],
+.btn,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+summary,
+[role="tab"],
+[role="tablist"],
+[role="switch"],
+.carousel-arrow,
+.slider-arrow,
+.faq-trigger,
+.accordion-trigger,
+.badge,
+.tag-filter,
+.chip,
+.pagination,
+.select-none,
+svg,
+svg * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Keep text inside FAQ answers, accordion content and modal bodies fully selectable */
+details > *:not(summary),
+[role="region"],
+[role="tabpanel"],
+.accordion-content,
+.faq-answer {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
 }
