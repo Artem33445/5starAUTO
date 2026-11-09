@@ -1,0 +1,13 @@
+# Front-End Checklist SEO Robots Directives
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /manage-rb94x/
+Disallow: /_next/
+Disallow: /_api_temp/
+
+# Crawl-delay for polite indexing
+Crawl-delay: 1
+
+# XML Sitemap location
+Sitemap: https://5starauto.web.app/sitemap.xml
